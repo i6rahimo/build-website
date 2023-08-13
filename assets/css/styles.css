@@ -1,6 +1,6 @@
 /*=============== GOOGLE FONTS ===============*/
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap');
 /*=============== VARIABLES CSS ===============*/
 :root {
   --header-height: 3.5rem;
@@ -21,7 +21,7 @@
 
   /*========== Font and typography ==========*/
   /*.5rem = 8px | 1rem = 16px ...*/
-  --body-font: 'Poppins', sans-serif;
+  --body-font: 'Montserrat', sans-serif;
   --biggest-font-size: 2.25rem;
   --h1-font-size: 1.5rem;
   --h2-font-size: 1.25rem;
@@ -96,108 +96,185 @@ button {
   border: none;
 }
 
-/*=============== THEME ===============*/
+section {
+  margin-bottom: 30px;
+}
 
-
-/*========== Variables Dark theme ==========*/
-
-
-/*========== 
-    Color changes in some parts of 
-    the website, in dark theme 
-==========*/
-
-
-/*=============== REUSABLE CSS CLASSES ===============*/
 .container {
-  max-width: 1024px;
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
+  width: 364px;
+  max-width: 100%;
+  padding: 0 32px;
+  margin: auto;
 }
 
-.grid {
-  display: grid;
+.header img{
+  width: 100%;
 }
 
-.section {
-  padding: 4.5rem 0 2rem;
+h2 {
+  font-weight: 700;
+  font-size: 30px;
+  text-align: center;
+  line-height: 36.57px;
+  color: #373737;
 }
 
-.section__title {
-  font-size: var(--h2-font-size);
-  margin-bottom: 1rem;
+.home__conetnt {
+  margin: 14px 0 15px 0;
 }
 
-.section__title span {
-  color: var(--second-color);
+.home__price {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color: #373737;
+}
+.home__currency, .home__price {
+  font-weight: 700;
+  font-size: 25px;
 }
 
-.section__subtitle {
-  display: block;
-  font-size: var(--small-font-size);
-  color: var(--second-color);
+.home__tabs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  background-color: #F2F7F9;
+  border-radius: 25px;
+  padding: 5px;
+  margin: 15px 0 15px;
 }
 
-.main {
-  overflow: hidden; /* For the animations ScrollReveal*/
+.home__tab {
+  background-color: #fff;
+  width: 108px;
+  height: 60px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: normal;
+  color: #373737; 
+  box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.06); 
+}
+.small__tabs {
+  height: 50px;
+}
+.small__tab {
+  height: 40px; 
+}
+.deliver__content {
+  margin: 15px 0 15px;
+}
+.deliver__tabs {
+  height: 50px;
+}
+.deliver__tab {
+  height: 40px;
+  width: 167px;
+  font-size: 13px;
+}
+.quantity__sum {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+.deliver__title {
+  margin: 30px 0 0;
+}
+.quantity__result {
+  background-color: #F2F7F9;
+  height: 65px;
+  width: 65px;
+  padding: 3px;
+  border-radius: 17px;
+}
+.quantity_title {
+  margin: 30px 0 15px;
+}
+.quantity__numbre {
+  background-color: #fff;
+  width: 100%;
+  height: 100%;
+  border-radius: 17px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: normal;
+  color: #373737; 
+}
+.cart {
+  width: 175px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  border-radius: 24px;
+  border: 3px solid #F2F7F9;
+  background: #FFF; 
+  padding: 24px;
 }
 
-/*=============== HEADER & NAV ===============*/
+.cart img {
+  max-width: 175px;
+}
 
+.cart__sum {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
 
-/* Change background header */
+.cart__minus img, .cart__plus img {
+  width: 35px;
+  height: 35px;
+}
+.cart__result {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 8.94px;
+  border: 1.578px solid #F2F7F9;
+  background: #FFF; 
+  color: #373737;
+}
+.cart__name {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: normal; 
+  color: #373737;
+}
+.cart__valut {
+  font-size: 8px;
+  font-weight: 700;
+  line-height: normal; 
+}
 
-
-/* Active link */
-
-
-/*=============== HOME ===============*/
-
-
-/*=============== BUTTON ===============*/
-
-
-/*=============== LOGOS ===============*/
-
-
-/*=============== POPULAR ===============*/
-
-
-/* Swiper class */
-
-
-/*=============== VALUE ===============*/
-
-
-/*Rotate icon and add shadows*/
-
-
-/*=============== CONTACT ===============*/
-
-
-/*=============== SUBSCRIBE ===============*/
-
-
-/*=============== FOOTER ===============*/
-
-
-/*=============== SCROLL BAR ===============*/
-
-
-/*=============== SCROLL UP ===============*/
-
-
-/* Show Scroll Up*/
-
-
-/*=============== BREAKPOINTS ===============*/
-/* For small devices */
-
-
-/* For medium devices */
-
-
-/* For large devices */
-
-
-/* For 2K & 4K resolutions */
+.cart__price-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.cart__price-inner span {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: normal;
+  color: #373737; 
+}
+.cart_title {
+  margin: 30px 0 14px;
+}
+.cart__wrapper {
+  display: flex;
+  gap: 14px;
+}
