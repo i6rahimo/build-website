@@ -21,26 +21,37 @@
             <section class="home container" id="home">
                 <h2 class="home__title">Content & size</h2>
                 <div class="home__conetnt">
-                    <img src="assets/img/main1.png" alt="Mix Set">
+                    <img class="home__content-img active" src="" alt="Mix Set" id="mix">
+                    <!-- <img class="home__content-img" src="assets/img/Mix medium.png" alt="Mix Set" id="mixmedium">
+                    <img class="home__content-img" src="assets/img/Mix small.png" alt="Mix Set" id="mixsmall"> -->
+<!--                 
+                    <img class="home__content-img" src="assets/img/only nuts big.png" alt="Mix Set" id="nuts">
+                    <img class="home__content-img" src="assets/img/only nuts medium.png" alt="Mix Set" id="nutsmedium">
+                    <img class="home__content-img" src="assets/img/only nuts small.png" alt="Mix Set" id="nutswsmall">
+
+                    <img class="home__content-img" src="assets/img/Dates big.png" alt="Mix Set" id="dates">
+                    <img class="home__content-img" src="assets/img/Dates medium.png" alt="Mix Set" id="datesmedium">
+                    <img class="home__content-img" src="assets/img/Dates small.png" alt="Mix Set" id="dateswsmall"> -->
+                
                 </div>
                 <div class="home__price">
                     <p class="home__currency">AED</p>
                     <span class="home__price">399</span>
                 </div>
                 <div class="home__tabs">
-                    <div class="home__tab">Mix Set</div>
-                    <div class="home__tab">Only Nuts</div>
-                    <div class="home__tab">Dates Mix</div>
+                    <div class="home__tab" data-btn="#mix">Mix Set</div>
+                    <div class="home__tab" data-btn="#nuts">Only Nuts</div>
+                    <div class="home__tab" data-btn="#dates">Dates Mix</div>
                 </div>
 
                 <div class="home__tabs small__tabs">
-                    <div class="home__tab small__tab">Big</div>
-                    <div class="home__tab small__tab">Medium</div>
-                    <div class="home__tab small__tab">Small</div>
+                    <div class="small__tab home__tabs-size" data-size="#big">Big</div>
+                    <div class="small__tab home__tabs-size" data-size="#medium">Medium</div>
+                    <div class="small__tab home__tabs-size" data-size="#small">Small</div>
                 </div>
             </section>
             <section class="deliver container">
-                <h2 class="deliver__title">Deliver Bag</h2>
+                <h2 class="deliver__title">Delivery Bag</h2>
                 <div class="deliver__content">
                     <img src="assets/img/bag.png" alt="">
                 </div>
@@ -51,7 +62,7 @@
             </section>  
 
             <section class="quantity container">
-                <h2 class="quantity_title">Qiantity</h2>
+                <h2 class="quantity_title">Quantity</h2>
                 <div class="quantity__sum">
                     <div class="quantity__plus">
                         <img src="assets/img/minus.svg" alt="minus">
@@ -118,6 +129,6 @@
         <footer class="footer section">
             
         </footer>
-        <script src=""></script>
+        <script src="assets/js/main.js"></script>
     </body>
 </html>
