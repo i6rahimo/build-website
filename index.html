@@ -53,18 +53,19 @@
             <section class="deliver container">
                 <h2 class="deliver__title">Delivery Bag</h2>
                 <div class="deliver__content">
-                    <img src="assets/img/bag.png" alt="">
+                    <img  class="deliver__content-img" src="assets/img/bag.png" alt="Bag1" id="craft">
+                    <img  class="deliver__content-img" src="assets/img/bag.png" alt="Bag2" id="print">
                 </div>
                 <div class="home__tabs  deliver__tabs">
-                    <div class="home__tab deliver__tab">Craft</div>
-                    <div class="home__tab deliver__tab">With Print</div>
+                    <div class="deliver__tab" data-del="#craft">Craft</div>
+                    <div class="deliver__tab" data-del="#print">With Print</div>
                 </div>
             </section>  
 
             <section class="quantity container">
                 <h2 class="quantity_title">Quantity</h2>
                 <div class="quantity__sum">
-                    <div class="quantity__plus">
+                    <div class="quantity__minus">
                         <img src="assets/img/minus.svg" alt="minus">
                     </div>
                     <div class="quantity__result">
@@ -72,7 +73,7 @@
                             0
                         </p>
                     </div>
-                    <div class="quantity__minus">
+                    <div class="quantity__plus">
                         <img src="assets/img/plus.svg" alt="plus">
                     </div>
                 </div>

@@ -148,7 +148,7 @@ h2 {
   margin: 15px 0 15px;
 }
 
-.home__tab, .home__tabs-size {
+.home__tab, .home__tabs-size, .deliver__tab {
   width: 108px;
   height: 60px;
   border-radius: 20px;
@@ -165,10 +165,10 @@ h2 {
 .home__content-img {
   /* display: none; */
 }
-.home__content-img.active, .home__tabs-size.active{
+.home__content-img.active, .home__tabs-size.active, .deliver__tab.active{
   display: flex;
 }
-.home__tab.active, .home__tabs-size.active {
+.home__tab.active, .home__tabs-size.active, .deliver__tab.active {
   background-color: #fff;
   box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.06); 
 }
@@ -183,6 +183,12 @@ h2 {
 }
 .deliver__tabs {
   height: 50px;
+}
+.deliver__content-img {
+  display: none;
+}
+.deliver__content-img.active {
+  display: flex;
 }
 .deliver__tab {
   height: 40px;

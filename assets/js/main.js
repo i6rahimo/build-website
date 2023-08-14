@@ -129,4 +129,80 @@ document.addEventListener('DOMContentLoaded', ()=>{
     document.querySelector('.home__tab').click();
     document.querySelector('.home__tabs-size').click();
 
+
+
+    function deliveryBag() {
+        const btns = document.querySelectorAll('.deliver__tab');
+        const img = document.querySelectorAll('.deliver__content-img');
+
+        btns.forEach(item => {
+            item.addEventListener('click', () => {
+                const currentBtn = item;
+                const currentBtnId = currentBtn.getAttribute('data-del');
+                const currentImg = document.querySelector(currentBtnId)    
+
+                    if(! currentBtn.classList.contains('active')) {
+                        btns.forEach(item => {
+                            item.classList.remove('active')
+                        })
+                        img.forEach(item => {
+                            item.classList.remove('active')
+                        })
+                        
+                        currentBtn.classList.add('active')
+                        currentImg.classList.add('active')
+                    }
+                })
+            })
+    }
+    deliveryBag()
+    document.querySelector('.deliver__tab').click();
+
+
+
+
+
+    function quantity() {
+        const plus = document.querySelector('.quantity__plus');
+        const result = document.querySelector('.quantity__numbre');
+        const minus = document.querySelector('.quantity__minus');
+
+        plus.addEventListener('click', () => {
+            result.innerHTML++
+        });
+        minus.addEventListener('click', () => {
+            if(result.innerHTML <= 0) {
+                result.innerHTML == 0
+            } else {
+                result.innerHTML--
+            }
+        })
+    }
+    quantity()
+
+
+    function order() {
+        const cart  = document.querySelectorAll('.cart');
+        cart.forEach(item => {
+            console.log(item);
+            const plus = item.querySelector('.cart__plus');
+            const result = item.querySelector('.cart__result');
+            const minus = item.querySelector('.cart__minus');
+            console.log(plus);
+            
+            plus.addEventListener('click', () => {
+                result.innerHTML++
+            });
+            minus.addEventListener('click', () => {
+                if(result.innerHTML <= 0) {
+                    result.innerHTML == 0
+                } else {
+                    result.innerHTML--
+                }
+            })
+        })
+
+    }
+    order()
+
 })
