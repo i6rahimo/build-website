@@ -168,13 +168,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
         const minus = document.querySelector('.quantity__minus');
 
         plus.addEventListener('click', () => {
-            result.innerHTML++
+            result.value++
         });
         minus.addEventListener('click', () => {
-            if(result.innerHTML <= 0) {
-                result.innerHTML == 0
+            if(result.value <= 0) {
+                result.value == 0
             } else {
-                result.innerHTML--
+                result.value--
             }
         })
     }
