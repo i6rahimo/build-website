@@ -186,18 +186,18 @@ document.addEventListener('DOMContentLoaded', ()=>{
         cart.forEach(item => {
             console.log(item);
             const plus = item.querySelector('.cart__plus');
-            const result = item.querySelector('.cart__result');
+            const result = item.querySelector('.cart__result-inner');
             const minus = item.querySelector('.cart__minus');
             console.log(plus);
             
             plus.addEventListener('click', () => {
-                result.innerHTML++
+                result.value++
             });
             minus.addEventListener('click', () => {
-                if(result.innerHTML <= 0) {
-                    result.innerHTML == 0
+                if(result.value <= 0) {
+                    result.value == 0
                 } else {
-                    result.innerHTML--
+                    result.value--
                 }
             })
         })

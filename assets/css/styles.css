@@ -292,6 +292,10 @@ h2 {
   background: #FFF; 
   color: #373737;
 }
+.cart__result-inner {
+  max-width: 30%;
+}
+
 .cart__name {
   font-size: 13px;
   font-weight: 500;
