@@ -10,30 +10,30 @@ document.addEventListener('DOMContentLoaded', ()=>{
         const images = 
             {
                 imgMix: {
-                    default: 'assets/img/Mix big.png',
+                    default: 'assets/img/Mix big.webp',
                     price: 399,
                     size: {
-                        big: 'assets/img/Mix big.png',
-                        medium: 'assets/img/Mix medium.png',
-                        small: 'assets/img/Mix small.png',
+                        big: 'assets/img/Mix big.webp',
+                        medium: 'assets/img/Mix medium.webp',
+                        small: 'assets/img/Mix small.webp',
                     },
                 },
                 imgNuts: {
-                    default: 'assets/img/only nuts big.png',
+                    default: 'assets/img/only nuts big.webp',
                     price: 399,
                     size: {
-                        big: 'assets/img/only nuts big.png',
-                        medium: 'assets/img/only nuts medium.png',
-                        small: 'assets/img/only nuts small.png',
+                        big: 'assets/img/only nuts big.webp',
+                        medium: 'assets/img/only nuts medium.webp',
+                        small: 'assets/img/only nuts small.webp',
                     },
                 },
                 imgDates: {
-                    default: 'assets/img/Dates big.png',
+                    default: 'assets/img/Dates big.webp',
                     price: 399,
                     size: {
-                        big: 'assets/img/Dates big.png',
-                        medium: 'assets/img/Dates medium.png',
-                        small: 'assets/img/Dates small.png',
+                        big: 'assets/img/Dates big.webp',
+                        medium: 'assets/img/Dates medium.webp',
+                        small: 'assets/img/Dates small.webp',
                     },
                 }
             };
