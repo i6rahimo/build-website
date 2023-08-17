@@ -10,17 +10,46 @@ const priceCart = document.querySelector('.footer__items-price')
 const footerItems = document.querySelector('.footer__items')
 
 
+
+function deliveryBag() {
+    const btns = document.querySelectorAll('.deliver__tab');
+    const img = document.querySelectorAll('.deliver__content-img');
+
+    btns.forEach(item => {
+        item.addEventListener('click', () => {
+            const currentBtn = item;
+            const currentBtnId = currentBtn.getAttribute('data-del');
+            const currentImg = document.querySelector(currentBtnId)    
+
+                if(! currentBtn.classList.contains('active')) {
+                    btns.forEach(item => {
+                        item.classList.remove('active')
+                    })
+                    img.forEach(item => {
+                        item.classList.remove('active')
+                    })
+                    
+                    currentBtn.classList.add('active')
+                    currentImg.classList.add('active')
+                }
+            })
+        })
+}
+deliveryBag()
+document.querySelector('.deliver__tab').click();
 const increaseItems = (item) => {
     itemsCart.innerHTML = item;
 }
-const increasePrice = (price) => {
-    priceCart.innerHTML = price
+const increasePrice = () => {
+    price.innerHTML = priceContent.innerHTML
 }
 const price = {
     big: 399,
     medium: 285,
     small: 140
 }
+
+
 btnMix.forEach(el => {
     el.addEventListener('click', (e) => {
         
@@ -81,54 +110,31 @@ document.querySelector('.home__tab').click()
 document.querySelector('.small__tab').click()
     
 
-function deliveryBag() {
-    const btns = document.querySelectorAll('.deliver__tab');
-    const img = document.querySelectorAll('.deliver__content-img');
-
-    btns.forEach(item => {
-        item.addEventListener('click', () => {
-            const currentBtn = item;
-            const currentBtnId = currentBtn.getAttribute('data-del');
-            const currentImg = document.querySelector(currentBtnId)    
-
-                if(! currentBtn.classList.contains('active')) {
-                    btns.forEach(item => {
-                        item.classList.remove('active')
-                    })
-                    img.forEach(item => {
-                        item.classList.remove('active')
-                    })
-                    
-                    currentBtn.classList.add('active')
-                    currentImg.classList.add('active')
-                }
-            })
-        })
-}
-deliveryBag()
-document.querySelector('.deliver__tab').click();
-
-
-
-
-
 function quantity() {
     const plus = document.querySelector('.quantity__plus');
-    const result = document.querySelector('.quantity__numbre');
+    const result = document.querySelector('#quantity__result-inner');
     const minus = document.querySelector('.quantity__minus');
-
+    
     plus.addEventListener('click', () => {
-        const resultInner = result.value++
-        if(resultInner > 0) {
+        result.value++
+        
+        if(result.value > 0) {
             footerItems.classList.add('active')
         }
-        increaseItems(resultInner)
+        increaseItems(result.value)
+
+
+        increasePrice()
+        
     });
     minus.addEventListener('click', () => {
         if(result.value <= 0) {
             result.value == 0
+            footerItems.classList.remove('active')
         } else {
             result.value--
+            increaseItems(result.value)
+
         }
     })
 }
@@ -137,27 +143,38 @@ quantity()
 
 function order() {
     const cart  = document.querySelectorAll('.cart');
-    cart.forEach(item => {
+    cart.forEach(item=> {
 
         const plus = item.querySelector('.cart__plus');
-        const result = item.querySelector('.cart__result-inner');
+        const result = item.querySelector('#cart__result-inner');
         const minus = item.querySelector('.cart__minus');
-        
+    
         plus.addEventListener('click', () => {
 
-            const resultInner = result.value++
-            console.log(resultInner);
-            increaseItems(resultInner)
+            result.value++
+            if(result.value > 0) {
+                footerItems.classList.add('active')
+            }
+            increaseItems(result.value)
+        
+
 
         });
         minus.addEventListener('click', () => {
             if(result.value <= 0) {
                 result.value == 0
+                footerItems.classList.remove('active')
+
             } else {
                 result.value--
+            increaseItems(result.value)
+
             }
         })
     })
 
 }
 order()
+
+
+
