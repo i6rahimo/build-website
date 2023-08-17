@@ -7,7 +7,9 @@ const homcontentSmall = document.querySelector('.home__content-small');
 
 const priceContent = document.querySelector('.home__price')
 const price = {
-    big: 3
+    big: 399,
+    medium: 285,
+    small: 140
 }
 btnMix.forEach(el => {
     el.addEventListener('click', (e) => {
@@ -50,10 +52,13 @@ sizeBtns.forEach(btn => {
         homcontentBig.classList.remove('active'); homcontentMedium.classList.remove('active'); homcontentSmall.classList.remove('active')
         if(btnIdSize === 'big') {
             homcontentBig.classList.add('active')
+            priceContent.innerHTML = price.big
         } else if (btnIdSize === 'medium') {
             homcontentMedium.classList.add('active')
+            priceContent.innerHTML = price.medium
         } else if (btnIdSize === 'small') {
             homcontentSmall.classList.add('active')
+            priceContent.innerHTML = price.small
         } 
 
 
