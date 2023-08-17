@@ -4,8 +4,16 @@ const sizeBtns = document.querySelectorAll('.small__tab');
 const homcontentBig = document.querySelector('.home__content-big');
 const homcontentMedium = document.querySelector('.home__content-medium');
 const homcontentSmall = document.querySelector('.home__content-small');
+const priceContent = document.querySelector('.home__price');
+const itemsCart = document.querySelector('.footer__items-item');
+const priceCart = document.querySelector('.footer__items-price')
 
-const priceContent = document.querySelector('.home__price')
+const increaseItems = (item) => {
+    itemsCart.innerHTML = item;
+}
+const increasePrice = (price) => {
+    priceCart.innerHTML = price
+}
 const price = {
     big: 399,
     medium: 285,
@@ -53,22 +61,26 @@ sizeBtns.forEach(btn => {
         if(btnIdSize === 'big') {
             homcontentBig.classList.add('active')
             priceContent.innerHTML = price.big
+            increasePrice(price.big)
         } else if (btnIdSize === 'medium') {
             homcontentMedium.classList.add('active')
             priceContent.innerHTML = price.medium
+            increasePrice(price.medium)
         } else if (btnIdSize === 'small') {
             homcontentSmall.classList.add('active')
             priceContent.innerHTML = price.small
+            increasePrice(price.small)
         } 
-
-
-
 
     })
 })
+
 document.querySelector('.home__tab').click()
 document.querySelector('.small__tab').click()
     
+
+
+
 
 
 
@@ -143,7 +155,8 @@ function quantity() {
     const minus = document.querySelector('.quantity__minus');
 
     plus.addEventListener('click', () => {
-        result.value++
+        const resultInner = result.value++
+        increaseItems(resultInner)
     });
     minus.addEventListener('click', () => {
         if(result.value <= 0) {
