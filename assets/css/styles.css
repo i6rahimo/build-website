@@ -359,14 +359,20 @@ h2 {
 .footer__btn-wrapper {
   display: flex;
   gap: 14px;
-
+  padding: 26px 0 0;
 }
 .footer__items {
-  display: flex;
+  display: none;
   justify-content: center;
   gap: 5px;
   color: #373737;
   font-size: 13px;
+}
+.footer__items.active {
+  display: flex;
+}
+.footer__items.active ~ .footer__btn-wrapper  {
+  padding: 0;
 }
 .footer__items-price {
   font-weight: 700;

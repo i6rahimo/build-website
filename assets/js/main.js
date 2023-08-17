@@ -7,6 +7,8 @@ const homcontentSmall = document.querySelector('.home__content-small');
 const priceContent = document.querySelector('.home__price');
 const itemsCart = document.querySelector('.footer__items-item');
 const priceCart = document.querySelector('.footer__items-price')
+const footerItems = document.querySelector('.footer__items')
+
 
 const increaseItems = (item) => {
     itemsCart.innerHTML = item;
@@ -79,45 +81,6 @@ document.querySelector('.home__tab').click()
 document.querySelector('.small__tab').click()
     
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function deliveryBag() {
     const btns = document.querySelectorAll('.deliver__tab');
     const img = document.querySelectorAll('.deliver__content-img');
@@ -156,6 +119,9 @@ function quantity() {
 
     plus.addEventListener('click', () => {
         const resultInner = result.value++
+        if(resultInner > 0) {
+            footerItems.classList.add('active')
+        }
         increaseItems(resultInner)
     });
     minus.addEventListener('click', () => {
@@ -178,7 +144,11 @@ function order() {
         const minus = item.querySelector('.cart__minus');
         
         plus.addEventListener('click', () => {
-            result.value++
+
+            const resultInner = result.value++
+            console.log(resultInner);
+            increaseItems(resultInner)
+
         });
         minus.addEventListener('click', () => {
             if(result.value <= 0) {
