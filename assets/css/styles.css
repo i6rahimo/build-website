@@ -187,7 +187,16 @@ h2 {
 }
 
 .home__content-img {
-  /* display: none; */
+  display: none;
+}
+.home__content-img.active {
+  display: flex;
+}
+.home__content-big, .home__content-medium, .home__content-small {
+  display: none;
+}
+.home__content-big.active, .home__content-medium.active, .home__content-small.active {
+  display: flex;
 }
 .home__content-img.active, .home__tabs-size.active, .deliver__tab.active{
   display: flex;
