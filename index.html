@@ -10,7 +10,7 @@
     <body>
         <!--==================== HEADER ====================-->
         <header class="header" id="header">
-            <img src="assets/img/logo.svg" alt="logo">
+            <!-- <img src="assets/img/logo.svg" alt="logo"> -->
         </header>
 
         <!--==================== MAIN ====================-->
@@ -19,17 +19,17 @@
             <section class="home container" id="home">
                 <h2 class="home__title">Content & size</h2>
                 <div class="home__content">
-                    <div class="home__content-big">
+                    <div class="home__content-inner home__content-big">
                         <img class="home__content-img" src="assets/img/mix big.webp" alt="Mix Set Big" id="mix">
                         <img class="home__content-img" src="assets/img/only nuts big.webp" alt="Only Nuts Big" id="nuts">
                         <img class="home__content-img" src="assets/img/Dates big.webp" alt="Dates Mix Big" id="dates">
                     </div>
-                    <div class="home__content-medium">
+                    <div class="home__content-inner home__content-medium">
                         <img class="home__content-img " src="assets/img/Mix medium.webp" alt="Mix Set Medium" id="mix">
                         <img class="home__content-img" src="assets/img/only nuts medium.webp" alt="Only Nuts Medium" id="nuts">
                         <img class="home__content-img" src="assets/img/Dates medium.webp" alt="Dates Mix Medium" id="dates">
                     </div>
-                    <div class="home__content-small">
+                    <div class="home__content-inner home__content-small">
                         <img class="home__content-img " src="assets/img/Mix small.webp" alt="Mix Set Small" id="mix">
                         <img class="home__content-img" src="assets/img/only nuts small.webp" alt="Only Nuts Small" id="nuts">
                         <img class="home__content-img" src="assets/img/Dates small.webp" alt="Dates Mix Small" id="dates">  
@@ -55,8 +55,8 @@
             <section class="deliver container">
                 <h2 class="deliver__title">Delivery Bag</h2>
                 <div class="deliver__content">
-                    <img  class="deliver__content-img" src="assets/img/bag2.webp" alt="Bag1" id="craft">
-                    <img  class="deliver__content-img" src="assets/img/bag.webp" alt="Bag2" id="print">
+                    <img  class="deliver__content-img" src="assets/img/bag2.webp" alt="Craft Bag" id="craft">
+                    <img  class="deliver__content-img" src="assets/img/bag.webp" alt="Print Bag" id="print">
                 </div>
                 <div class="home__tabs  deliver__tabs">
                     <div class="deliver__tab" data-del="#craft">Craft</div>
@@ -131,11 +131,41 @@
                     </div>
                 </div>
             </section>
-            <section class="cart">
-                ibragim munik
-            </section>
-
+            
         </main>
+        <section class="product" >
+            <div class="product__wrapper">
+                <div class="product__close">
+                    <img src="assets/img/close.svg" alt="Close">
+                </div>
+
+                <div class="product__items">
+                    <!-- <div class="product__item">
+                        <div class="product__item-img">
+                            <img src="assets/img/only nuts big.webp" alt="Nuts Big">
+                        </div>
+                        <ul class="product__item-list">
+                            <li class=" main-name">Only Nuts Set(1)</li>
+                            <li class="product__item-names">Craft Bag</li>
+                            <li class="product__item-names">Flowers (1)</li>
+                            <li class="product__item-names">Honey(1)</li>
+                        </ul>
+                        <div class="product__item-price">
+                            <span class="product__price">600</span>
+                            <p>AED</p>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="product__footer">
+                    <div class="product__price">
+                        <p>Total: <b>AED</b><span class="product__fullprice"></span> </p>
+                    </div>
+                    <div class="product__btn">
+                        <button class="checkout">Check out</button>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!--==================== FOOTER ====================-->
         <footer class="footer container">

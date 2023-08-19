@@ -8,7 +8,7 @@ const priceContent = document.querySelector('.home__price');
 const itemsCart = document.querySelector('.footer__items-item');
 const priceCart = document.querySelector('.footer__items-price')
 const footerItems = document.querySelector('.footer__items')
-
+const productItems = document.querySelector('.product__items')
 
 
 function deliveryBag() {
@@ -59,7 +59,7 @@ btnMix.forEach(el => {
         
         homeContentImg.forEach(el => {
             const imgId = el.getAttribute('id')
-            el.classList.remove('active');
+            el.classList.remove('active')
             if(btnId === "#mix" && imgId === 'mix') {
                 el.classList.add('active')
             } else if (btnId === "#nuts" && imgId === 'nuts') {
@@ -109,23 +109,85 @@ sizeBtns.forEach(btn => {
 document.querySelector('.home__tab').click()
 document.querySelector('.small__tab').click()
     
+const productCart = (img, mainName, bag, flower = '', tea = '', price = 0) => {
+    productItems.insertAdjacentHTML("afterbegin", 
+        `
+            <div class="product__item">
+                <div class="product__item-img">
+                    <img src="${img}" alt="">
+                </div>
+                <ul class="product__item-list">
+                    <li class=" main-name">${mainName }</li>
+                    <li class="product__item-names">${bag }</li>
+                    <li class="product__item-names">${flower }</li>
+                    <li class="product__item-names">${tea }</li>
+                </ul>
+                <div class="product__item-price">
+                    <span class="product__price">${price}</span>
+                    <p>AED</p>
+                </div>
+            </div>
+        `
+    )
+
+}
+
+
 
 function quantity() {
     const plus = document.querySelector('.quantity__plus');
     const result = document.querySelector('#quantity__result-inner');
     const minus = document.querySelector('.quantity__minus');
-    
+
+
     plus.addEventListener('click', () => {
         result.value++
+        const imgActive = document.querySelectorAll('.home__content-inner')
+        imgActive.forEach((e, index) => {
+            if(e.classList.contains('active')) {
+                const currentImg = e.querySelectorAll('.home__content-img')
+                currentImg.forEach(item => {
+                    if(item.classList.contains('active')) {
+                        const imgSrc = item.getAttribute('src')
+                        const mainNames = item.getAttribute('alt')
+                        localStorage.setItem('img', imgSrc)
+                        localStorage.setItem('name', mainNames);
+                        localStorage.setItem('bag', mainNames);
+                    }
+                })
+            }
+        })
         
+        const deliveryBag = document.querySelectorAll('.deliver__content-img');
+
+        deliveryBag.forEach(bag => {
+            if(bag.classList.contains('active')) {
+                let bagName = bag.getAttribute('alt')
+                localStorage.setItem('bag', bagName);
+            }else {
+            }
+        })
+
+        
+        localStorage.setItem('price', priceContent.innerHTML)
+        const price = localStorage.getItem('price')
         if(result.value > 0) {
             footerItems.classList.add('active')
         }
         increaseItems(result.value)
-
-
         increasePrice()
         
+        let priceProduct = parseInt(document.querySelector('.product__price').textContent);
+        const fullPrice = (productPrice) => {
+            const fullPriceInner = document.querySelector('.product__fullprice');
+            fullPriceInner.innerHTML = productPrice + productPrice 
+        }
+        fullPrice(priceProduct)
+        console.log(priceProduct);
+
+        
+        productCart(localStorage.getItem('img'), localStorage.getItem('name'), localStorage.getItem('bag'),'flower', 'azer tea', price)
+
     });
     minus.addEventListener('click', () => {
         if(result.value <= 0) {
@@ -134,11 +196,15 @@ function quantity() {
         } else {
             result.value--
             increaseItems(result.value)
-
+            
         }
     })
 }
 quantity()
+
+
+
+
 
 
 function order() {

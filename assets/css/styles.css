@@ -117,6 +117,7 @@ section {
   background: rgba(255, 255, 255, 0.50);
   box-shadow: 0px -2px 24px 0px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(17px); 
+  z-index: 2;
 }
 .header {
   height: 50px;
@@ -391,4 +392,110 @@ h2 {
   border: 1px solid #393939;
   width: 175px;
   height: 40px;
+}
+
+
+.product {
+  position: fixed;
+  width: 428px;
+  max-width: 100%;
+  margin: auto;
+  padding: 105px 32px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  /* right: 0; */
+  background: #fff;
+  z-index: 1;
+}
+
+.product__close {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.product__items {
+  margin: 10px 0 0;
+  overflow: auto;
+  height: 400px;
+}
+.product__item {
+
+  display: flex;
+  align-items: flex-start;
+  border-top: 1px solid #D7DCDE;
+  border-bottom: 1px solid #D7DCDE;
+  padding: 25px 0;
+}
+.product__item-img {
+  width: 80px;
+  height: 110px;
+}
+
+.main-name {
+  color: #373737; 
+  font-size: 13px;
+  font-weight: 700;
+  line-height: normal; 
+}
+.product__item-names {
+  color: #373737;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px; 
+  margin: 0 0 0 20px;
+  position: relative;
+}
+.product__item-names::before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 2px;
+  background-color: #373737;
+  height: 2px;
+  border-radius: 100%;
+  left: -10px;
+  top: 8px;
+}
+.product__item-price {
+  color: #373737;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: normal; 
+  display: flex;
+  gap: 5px;
+  margin: 30px 0 0;
+}
+
+.product__item-list {
+  margin: 0 59px 0 22px;
+}
+.product__footer {
+  width: 100%;
+  bottom: 0;
+  position: absolute;
+  left: 0;
+  background: rgba(255, 255, 255, 0.50);
+  box-shadow: 0px -2px 24px 0px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(17px); 
+}
+.product__price {
+  color: #373737;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: normal; 
+}
+.checkout {
+  width: 365px;
+  height: 40px;
+  text-align: center;
+  color: #fff;
+  background: #FF3C00;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: normal; 
 }
