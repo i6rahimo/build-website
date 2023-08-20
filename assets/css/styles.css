@@ -413,8 +413,7 @@ h2 {
   display: none;
 
 }
-main {
-}
+
 .product__close {
   display: flex;
   width: 100%;
@@ -425,7 +424,7 @@ main {
 .product__items {
   margin: 10px 0 0;
   overflow: auto;
-  height: 400px;
+  height: 600px;
 }
 .product__item {
 
@@ -557,3 +556,8 @@ main.hiden {
     flex-direction: column;
     z-index: -1;
 }
+
+.footer__cart.disabled {
+  pointer-events: none;
+}
+

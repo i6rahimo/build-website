@@ -153,8 +153,7 @@ const productCart = (img, mainName, bag, flower = '', tea = '', price = 0) => {
 }
 
 const initialStorage = (product) => {
-    // if (! localStorage.getItem('products')) {
-    // }
+
     localStorage.setItem('products', product);
 }
 
@@ -301,10 +300,11 @@ const addToCartBtn = () => {
 const addToCart = () => {
     btnAddToCart.addEventListener('click', ()=> {
         let productInner = localStorage.getItem('products')
-        updateStorage(productInner)
-
+        
         btnLinkCart.classList.add('active')
+        btnLinkCart.classList.remove('disabled')
         btnLinkCartSvg.classList.add('active')
+        updateStorage(productInner)
     })
 }
 
@@ -325,11 +325,17 @@ const linkCart = () => {
 linkCart()
 
 
+const btnClose = document.querySelector('.product__close');
+const closeContent = () => {
+    btnClose.addEventListener('click', ()=> {
+        productContent.classList.remove('show')
+        main.classList.remove('hiden')
+        productFooter.classList.remove('show')
+        footerWrapper.classList.remove('hiden')
+    })
+}
 
-
-
-
-
+closeContent();
 
 
 
