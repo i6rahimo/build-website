@@ -1,3 +1,7 @@
+document.addEventListener('DOMContentLoaded', ()=> {
+
+
+
 const btnMix = document.querySelectorAll('.home__tab');
 const homeContentImg = document.querySelectorAll('.home__content-img');
 const sizeBtns = document.querySelectorAll('.small__tab');
@@ -9,6 +13,11 @@ const itemsCart = document.querySelector('.footer__items-item');
 const priceCart = document.querySelector('.footer__items-price')
 const footerItems = document.querySelector('.footer__items')
 const productItems = document.querySelector('.product__items')
+const btnAddToCart = document.querySelector('.footer__add')
+const btnAddToCartSvg = document.querySelector('.footer__add-svg')
+const btnLinkCart = document.querySelector('.footer__cart')
+const btnLinkCartSvg = document.querySelector('.footer__cart-svg')
+const btnLinkCartPrice = document.querySelector('.footer__cart-price')
 
 
 function deliveryBag() {
@@ -49,6 +58,13 @@ const price = {
     small: 140
 }
 
+let startPrice = 0;
+const plusFullPrice = (currentPrice) => {
+	return startPrice += currentPrice;
+};
+const minusFullPrice = (currentPrice) => {
+	return startPrice -= currentPrice;
+};
 
 btnMix.forEach(el => {
     el.addEventListener('click', (e) => {
@@ -93,14 +109,19 @@ sizeBtns.forEach(btn => {
             homcontentBig.classList.add('active')
             priceContent.innerHTML = price.big
             increasePrice(price.big)
+            priceCart.textContent = '0'
         } else if (btnIdSize === 'medium') {
             homcontentMedium.classList.add('active')
             priceContent.innerHTML = price.medium
             increasePrice(price.medium)
+            priceCart.textContent = '0'
+
         } else if (btnIdSize === 'small') {
             homcontentSmall.classList.add('active')
             priceContent.innerHTML = price.small
             increasePrice(price.small)
+        priceCart.textContent = '0'
+
         } 
 
     })
@@ -110,8 +131,7 @@ document.querySelector('.home__tab').click()
 document.querySelector('.small__tab').click()
     
 const productCart = (img, mainName, bag, flower = '', tea = '', price = 0) => {
-    productItems.insertAdjacentHTML("afterbegin", 
-        `
+    return `
             <div class="product__item">
                 <div class="product__item-img">
                     <img src="${img}" alt="">
@@ -128,9 +148,24 @@ const productCart = (img, mainName, bag, flower = '', tea = '', price = 0) => {
                 </div>
             </div>
         `
-    )
+    
 
 }
+
+const initialStorage = (product) => {
+    // if (! localStorage.getItem('products')) {
+    // }
+    localStorage.setItem('products', product);
+}
+
+const updateStorage = (productInner) => {
+    let parent = document.querySelector('.product__items');
+
+    parent.insertAdjacentHTML('afterbegin', productInner)
+
+    
+}
+
 
 
 
@@ -157,9 +192,11 @@ function quantity() {
                 })
             }
         })
-        
-        const deliveryBag = document.querySelectorAll('.deliver__content-img');
 
+        priceCart.innerHTML = plusFullPrice(parseInt(priceContent.textContent))
+        btnLinkCartPrice.innerHTML = priceCart.innerHTML
+        const deliveryBag = document.querySelectorAll('.deliver__content-img');
+        
         deliveryBag.forEach(bag => {
             if(bag.classList.contains('active')) {
                 let bagName = bag.getAttribute('alt')
@@ -171,37 +208,41 @@ function quantity() {
         
         localStorage.setItem('price', priceContent.innerHTML)
         const price = localStorage.getItem('price')
+
+        if(result.value === 0) {
+            btnAddToCart.classList.add('disabled')
+        }
+
+        
         if(result.value > 0) {
             footerItems.classList.add('active')
         }
         increaseItems(result.value)
         increasePrice()
         
-        let priceProduct = parseInt(document.querySelector('.product__price').textContent);
-        const fullPrice = (productPrice) => {
-            const fullPriceInner = document.querySelector('.product__fullprice');
-            fullPriceInner.innerHTML = productPrice + productPrice 
-        }
-        fullPrice(priceProduct)
-        console.log(priceProduct);
-
         
-        productCart(localStorage.getItem('img'), localStorage.getItem('name'), localStorage.getItem('bag'),'flower', 'azer tea', price)
+        
+        let product = productCart(localStorage.getItem('img'), localStorage.getItem('name'), localStorage.getItem('bag'),'flower', 'azer tea', price)
+        
+        initialStorage(product)
 
+        addToCartBtn()
     });
     minus.addEventListener('click', () => {
         if(result.value <= 0) {
             result.value == 0
             footerItems.classList.remove('active')
+            priceCart.innerHTML = '0'
         } else {
             result.value--
             increaseItems(result.value)
             
+            priceCart.innerHTML = minusFullPrice(parseInt(priceContent.textContent))
+            addToCartBtn()
         }
     })
 }
 quantity()
-
 
 
 
@@ -241,6 +282,60 @@ function order() {
 
 }
 order()
+console.log(itemsCart.innerHTML);
+const addToCartBtn = () => {
+    
+    if(itemsCart.innerHTML === '') {
+        btnAddToCart.classList.remove('active')
+        btnAddToCartSvg.classList.remove('active')
+        
+    } else if (itemsCart.textContent > 0) {
+        btnAddToCart.classList.add('active')
+        btnAddToCartSvg.classList.add('active')
+        btnAddToCart.disabled = false;
+        btnAddToCart.classList.remove('disabled')
+    } 
+ 
+}
+
+const addToCart = () => {
+    btnAddToCart.addEventListener('click', ()=> {
+        let productInner = localStorage.getItem('products')
+        updateStorage(productInner)
+
+        btnLinkCart.classList.add('active')
+        btnLinkCartSvg.classList.add('active')
+    })
+}
+
+addToCart()
+const footerWrapper = document.querySelector('.footer__wrapper')
+const main = document.querySelector('main')
+const productFooter = document.querySelector('.product__footer')
+const productContent = document.querySelector('.product')
+const linkCart = () => {
+    btnLinkCart.addEventListener('click', (e)=> {
+        let self = e.currentTarget;
+        footerWrapper.classList.add('hiden')
+        main.classList.add('hiden')
+        productFooter.classList.add('show')
+        productContent.classList.add('show')
+    })
+}
+linkCart()
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+}
+)
