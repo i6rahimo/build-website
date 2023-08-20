@@ -18,7 +18,7 @@ const btnAddToCartSvg = document.querySelector('.footer__add-svg')
 const btnLinkCart = document.querySelector('.footer__cart')
 const btnLinkCartSvg = document.querySelector('.footer__cart-svg')
 const btnLinkCartPrice = document.querySelector('.footer__cart-price')
-
+const fullPriceContent = document.querySelector('.product__fullprice')
 
 function deliveryBag() {
     const btns = document.querySelectorAll('.deliver__tab');
@@ -168,10 +168,11 @@ const updateStorage = (productInner) => {
 
 
 
+const plus = document.querySelector('.quantity__plus');
+const result = document.querySelector('#quantity__result-inner');
+const minus = document.querySelector('.quantity__minus');
+
 function quantity() {
-    const plus = document.querySelector('.quantity__plus');
-    const result = document.querySelector('#quantity__result-inner');
-    const minus = document.querySelector('.quantity__minus');
 
 
     plus.addEventListener('click', () => {
@@ -194,6 +195,7 @@ function quantity() {
 
         priceCart.innerHTML = plusFullPrice(parseInt(priceContent.textContent))
         btnLinkCartPrice.innerHTML = priceCart.innerHTML
+        fullPriceContent.innerHTML = priceCart.innerHTML
         const deliveryBag = document.querySelectorAll('.deliver__content-img');
         
         deliveryBag.forEach(bag => {
@@ -281,8 +283,8 @@ function order() {
 
 }
 order()
-console.log(itemsCart.innerHTML);
 const addToCartBtn = () => {
+    
     
     if(itemsCart.innerHTML === '') {
         btnAddToCart.classList.remove('active')
@@ -304,6 +306,9 @@ const addToCart = () => {
         btnLinkCart.classList.add('active')
         btnLinkCart.classList.remove('disabled')
         btnLinkCartSvg.classList.add('active')
+        priceCart.innerHTML = 0;
+        result.value = 0;
+        itemsCart.innerHTML = 0;
         updateStorage(productInner)
     })
 }
@@ -313,6 +318,7 @@ const footerWrapper = document.querySelector('.footer__wrapper')
 const main = document.querySelector('main')
 const productFooter = document.querySelector('.product__footer')
 const productContent = document.querySelector('.product')
+
 const linkCart = () => {
     btnLinkCart.addEventListener('click', (e)=> {
         let self = e.currentTarget;
