@@ -490,6 +490,7 @@ h2 {
 .checkout {
   width: 365px;
   height: 40px;
+  max-width: 100%;
   text-align: center;
   color: #fff;
   background: #FF3C00;
