@@ -130,14 +130,14 @@ sizeBtns.forEach(btn => {
 document.querySelector('.home__tab').click()
 document.querySelector('.small__tab').click()
     
-const productCart = (img, mainName, bag, price) => {
+const productCart = (img, mainName, bag, price, count) => {
     return `
             <div class="product__item">
                 <div class="product__item-img">
                     <img src="${img}" alt="">
                 </div>
                 <ul class="product__item-list">
-                    <li class=" main-name">${mainName }</li>
+                    <li class=" main-name">${mainName} (${count})</li>
                     <li class="product__item-names">${bag }</li>
                 </ul>
                 <div class="product__item-price">
@@ -192,7 +192,7 @@ function quantity() {
         })
 
         priceCart.innerHTML = plusFullPrice(parseInt(priceContent.textContent))
-        btnLinkCartPrice.innerHTML = priceCart.innerHTML
+      
         fullPriceContent.innerHTML = priceCart.innerHTML
         const deliveryBag = document.querySelectorAll('.deliver__content-img');
         
@@ -206,7 +206,11 @@ function quantity() {
 
         
         localStorage.setItem('price', priceContent.innerHTML)
+        let resulQuantity = result.value
+        localStorage.setItem('count', resulQuantity)
+
         const price = localStorage.getItem('price')
+        let currentPrice = price * resulQuantity
 
         if(result.value === 0) {
             btnAddToCart.classList.add('disabled')
@@ -216,12 +220,13 @@ function quantity() {
         if(result.value > 0) {
             footerItems.classList.add('active')
         }
-        increaseItems(result.value)
+        itemsCart.innerHTML++
+
         increasePrice()
         
         
         
-        let product = productCart(localStorage.getItem('img'), localStorage.getItem('name'), localStorage.getItem('bag'), price)
+        let product = productCart(localStorage.getItem('img'), localStorage.getItem('name'), localStorage.getItem('bag'), currentPrice, localStorage.getItem('count'))
         
         initialStorage(product)
 
@@ -234,7 +239,8 @@ function quantity() {
             priceCart.innerHTML = '0'
         } else {
             result.value--
-            increaseItems(result.value)
+            itemsCart.innerHTML--
+
             
             priceCart.innerHTML = minusFullPrice(parseInt(priceContent.textContent))
             addToCartBtn()
@@ -257,30 +263,36 @@ function order() {
         
 
         let currentName = item.querySelector('.cart__name').innerHTML    
+        let currentPrice = item.querySelector('.cart__price-count')
         plus.addEventListener('click', () => {
 
             result.value++
             if(result.value > 0) {
                 footerItems.classList.add('active')
             }
-            let resultInner = result.value;
-            itemsCart.innerHTML = parseInt(resultInner)
+            itemsCart.innerHTML++
+            priceCart.innerHTML = plusFullPrice(parseInt(currentPrice.textContent))
+            
         });
-        minus.addEventListener('click', () => {
+        minus.addEventListener('click', (btn) => {
             if(result.value <= 0) {
-                result.value == 0
-                footerItems.classList.remove('active')
 
             } else {
                 result.value--
-                increaseItems(result.value)
-
+                itemsCart.innerHTML--
             }
+            priceCart.innerHTML = minusFullPrice(parseInt(currentPrice.textContent))
+
         })
     })
 
 }
 order()
+
+
+
+
+
 const addToCartBtn = () => {
     
     
@@ -300,6 +312,7 @@ const addToCartBtn = () => {
 const addToCart = () => {
     btnAddToCart.addEventListener('click', ()=> {
         let productInner = localStorage.getItem('products')
+        btnLinkCartPrice.innerHTML = priceCart.innerHTML
         
         btnLinkCart.classList.add('active')
         btnLinkCart.classList.remove('disabled')
@@ -308,6 +321,10 @@ const addToCart = () => {
         result.value = 0;
         itemsCart.innerHTML = 0;
         updateStorage(productInner)
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+
+        
+
     })
 }
 
@@ -317,6 +334,17 @@ const main = document.querySelector('main')
 const productFooter = document.querySelector('.product__footer')
 const productContent = document.querySelector('.product')
 
+let itemList = document.querySelector('.product__item-list');
+const addOrders = () => {
+    if(  productContent.classList.contains('show')) {
+        console.log('qwe');
+        console.log(itemList);
+        // itemList.insertAdjacentHTML('afterbegin',  `<li class="product__item-names">qwee</li>`
+        // )
+    }
+}
+
+
 const linkCart = () => {
     btnLinkCart.addEventListener('click', (e)=> {
         let self = e.currentTarget;
@@ -324,6 +352,7 @@ const linkCart = () => {
         main.classList.add('hiden')
         productFooter.classList.add('show')
         productContent.classList.add('show')
+        addOrders()
     })
 }
 linkCart()
@@ -345,7 +374,11 @@ closeContent();
 
 
 
-
-
 }
 )
+
+document.addEventListener('touchstart', function(event) {
+    if (event.touches.length > 1) {
+      event.preventDefault();
+    }
+  }, { passive: false });
