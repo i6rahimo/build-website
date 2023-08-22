@@ -130,7 +130,7 @@ sizeBtns.forEach(btn => {
 document.querySelector('.home__tab').click()
 document.querySelector('.small__tab').click()
     
-const productCart = (img, mainName, bag, flower = '', tea = '', price = 0) => {
+const productCart = (img, mainName, bag, price) => {
     return `
             <div class="product__item">
                 <div class="product__item-img">
@@ -139,8 +139,6 @@ const productCart = (img, mainName, bag, flower = '', tea = '', price = 0) => {
                 <ul class="product__item-list">
                     <li class=" main-name">${mainName }</li>
                     <li class="product__item-names">${bag }</li>
-                    <li class="product__item-names">${flower }</li>
-                    <li class="product__item-names">${tea }</li>
                 </ul>
                 <div class="product__item-price">
                     <span class="product__price">${price}</span>
@@ -223,7 +221,7 @@ function quantity() {
         
         
         
-        let product = productCart(localStorage.getItem('img'), localStorage.getItem('name'), localStorage.getItem('bag'),'flower', 'azer tea', price)
+        let product = productCart(localStorage.getItem('img'), localStorage.getItem('name'), localStorage.getItem('bag'), price)
         
         initialStorage(product)
 
@@ -256,17 +254,17 @@ function order() {
         const plus = item.querySelector('.cart__plus');
         const result = item.querySelector('#cart__result-inner');
         const minus = item.querySelector('.cart__minus');
-    
+        
+
+        let currentName = item.querySelector('.cart__name').innerHTML    
         plus.addEventListener('click', () => {
 
             result.value++
             if(result.value > 0) {
                 footerItems.classList.add('active')
             }
-            increaseItems(result.value)
-        
-
-
+            let resultInner = result.value;
+            itemsCart.innerHTML = parseInt(resultInner)
         });
         minus.addEventListener('click', () => {
             if(result.value <= 0) {
@@ -275,7 +273,7 @@ function order() {
 
             } else {
                 result.value--
-            increaseItems(result.value)
+                increaseItems(result.value)
 
             }
         })
