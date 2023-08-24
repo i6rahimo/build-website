@@ -448,6 +448,7 @@ h2 {
   background-color: #fff;
   z-index: 1;
   width: 100%;
+  transition: transform .3s ease;
 }
 .product__item-delete {
   background-color: red;
