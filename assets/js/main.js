@@ -170,6 +170,38 @@ const updateStorage = (productInner) => {
 const plus = document.querySelector('.quantity__plus');
 const result = document.querySelector('#quantity__result-inner');
 const minus = document.querySelector('.quantity__minus');
+const flowerBtnPlus = document.querySelector('.cart__plus-flower');
+const flowerBtnResult = document.querySelector('.cart__result-flower');
+const flowerBtnMinus = document.querySelector('.cart__minus-flower');
+const flowerName = document.querySelector('.cart__name-flower').innerHTML;
+const addFlower = () => {   
+    if(result.value === '0') {
+        flowerBtnPlus.addEventListener('click', ()=> {
+            flowerBtnResult.value = 0
+        })
+    } else if(result.value >= '1') {
+
+        flowerBtnPlus.addEventListener('click', ()=> {
+            flowerBtnResult.value++
+            localStorage.setItem('flower', flowerName)
+            itemsCart.innerHTML++
+            let currentPrice = document.querySelector('.cart__price-count').innerHTML
+            priceCart.innerHTML = plusFullPrice(parseInt(currentPrice))
+            let flowerCount = flowerBtnResult.value;
+            
+            localStorage.setItem('flowerCount', flowerCount)
+        })
+    }
+    flowerBtnMinus.addEventListener('click', ()=> {
+        if(flowerBtnResult.value <= 0) {
+            flowerBtnResult.value = 0
+        } else 
+        flowerBtnResult.value--
+        itemsCart.innerHTML--
+
+    })
+}
+
 
 function quantity() {
 
@@ -235,6 +267,7 @@ function quantity() {
         initialStorage(product)
 
         addToCartBtn()
+        addFlower()
     });
     minus.addEventListener('click', () => {
         if(result.value <= 0) {
@@ -303,13 +336,6 @@ const main = document.querySelector('main')
 const productFooter = document.querySelector('.product__footer')
 const productContent = document.querySelector('.product')
 
-let itemList = document.querySelector('.product__item-list');
-const addOrders = () => {
-    if(  productContent.classList.contains('show')) {
-        // itemList.insertAdjacentHTML('afterbegin',  `<li class="product__item-names">qwee</li>`
-        // )
-    }
-}
 
 
 const linkCart = () => {
@@ -319,7 +345,6 @@ const linkCart = () => {
         main.classList.add('hiden')
         productFooter.classList.add('show')
         productContent.classList.add('show')
-        addOrders()
     })
 }
 linkCart()
@@ -341,38 +366,6 @@ closeContent();
 
 
 
-const flowerBtnPlus = document.querySelector('.cart__plus-flower');
-const flowerBtnResult = document.querySelector('.cart__result-flower');
-const flowerBtnMinus = document.querySelector('.cart__minus-flower');
-const flowerName = document.querySelector('.cart__name-flower').innerHTML;
-const addFlower = () => {   
-    if(result.value === '0') {
-        flowerBtnPlus.addEventListener('click', ()=> {
-            flowerBtnResult.value = 0
-        })
-    } else if(result.value >= '1') {
-
-        flowerBtnPlus.addEventListener('click', ()=> {
-            flowerBtnResult.value++
-            localStorage.setItem('flower', flowerName)
-            itemsCart.innerHTML++
-            let currentPrice = document.querySelector('.cart__price-count').innerHTML
-            priceCart.innerHTML = plusFullPrice(parseInt(currentPrice))
-            let flowerCount = flowerBtnResult.value;
-            
-            localStorage.setItem('flowerCount', flowerCount)
-        })
-    }
-    flowerBtnMinus.addEventListener('click', ()=> {
-        if(flowerBtnResult.value <= 0) {
-            flowerBtnResult.value = 0
-        } else 
-        flowerBtnResult.value--
-        itemsCart.innerHTML--
-
-    })
-}
-addFlower()
 
 
 
@@ -414,6 +407,30 @@ addFlower()
 // order()
 
 
+const deleteItem = () => {
+    let item = document.querySelector('.product__item');
+    let startX;
+    let dist;
+    let isSwipingLeft = false;
+    // let threshold = element.offsetWidth * 0.3;
+    item.addEventListener('touchmove', (e)=> {
+        let self = e.currentTarget;
+        startX = e.touches[0].clientX;
+        // if(start)
+        e.currentTarget.style.transform = `translate(${startX})`
+    }) 
+
+
+}
+deleteItem()
+
+
+
+
+
+
+
+
 
 }
 )
@@ -423,3 +440,80 @@ document.addEventListener('touchstart', function(event) {
       event.preventDefault();
     }
   }, { passive: false });
+
+
+
+
+
+
+//   const productItems = document.querySelectorAll('.product__item-content');
+//   const productDeleteBtn = document.querySelectorAll('.product__item-delete');
+  const productItemMain = document.querySelectorAll('.product__item');
+
+  productItemMain.forEach(item => {
+    let innerItem = item.querySelector('.product__item-content')
+    let innerBtn = item.querySelector('.product__item-delete')
+    console.log(innerItem);
+    let startX;
+    let dist;
+    let threshold = innerItem.offsetWidth * 0.3; // Пороговое значение для определения смахивания влево\
+    
+    innerItem.addEventListener('touchstart', (event) => {
+        startX = event.touches[0].clientX;
+        dist = 0;
+    });
+    
+    innerItem.addEventListener('touchmove', (event) => {
+        let touch = event.touches[0];
+        let deltaX = startX - touch.clientX;
+        console.log(threshold);
+        
+        if (deltaX > 0) {
+            dist = deltaX;
+            innerItem.style.transform = `translateX(${-dist}px)`;
+        }
+    });
+    
+    innerItem.addEventListener('touchend', () => {
+        if (dist > threshold) {
+            innerBtn.addEventListener('click', ()=> {
+                
+                item.remove()
+            })
+        } else {
+            innerItem.style.transform = `translateX(0px)`;
+            
+        }
+    });
+  });
+  // Добавляем обработчик события "swipe left" для каждого элемента
+//   productItems.forEach(item => {
+//     let startX;
+//     let dist;
+//     let threshold = item.offsetWidth * 0.3; // Пороговое значение для определения смахивания влево
+//     item.addEventListener('touchstart', (event) => {
+//         startX = event.touches[0].clientX;
+//         dist = 0;
+//     });
+    
+//     item.addEventListener('touchmove', (event) => {
+//         let touch = event.touches[0];
+//         let deltaX = startX - touch.clientX;
+//         console.log(threshold);
+  
+//       if (deltaX > 0) {
+//         dist = deltaX;
+//         item.style.transform = `translateX(${-dist}px)`;
+//       }
+//     });
+  
+//     item.addEventListener('touchend', () => {
+//         if (dist > threshold) {
+//             console.log(item.closest('product__item-img'));
+//         } else {
+//             item.style.transform = `translateX(0px)`;
+
+//         }
+//     });
+//   });
+  

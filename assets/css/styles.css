@@ -434,12 +434,28 @@ h2 {
   height: 600px;
 }
 .product__item {
-
+  position: relative;
   display: flex;
   align-items: flex-start;
   border-top: 1px solid #D7DCDE;
   border-bottom: 1px solid #D7DCDE;
   padding: 25px 0;
+}
+.product__item-content {
+  display: flex;
+  align-items: flex-start;
+  padding: 25px 0;
+  background-color: #fff;
+  z-index: 1;
+}
+.product__item-delete {
+  background-color: red;
+  color: #fff;
+  padding: 15px;
+  border-radius: 5px;
+  font-size: 18px;
+  position: absolute;
+  right:  1px;
 }
 .product__item-img {
   width: 80px;
@@ -575,4 +591,5 @@ main.hiden {
 .footer__cart.disabled {
   pointer-events: none;
 }
+
 
