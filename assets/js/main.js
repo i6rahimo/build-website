@@ -130,7 +130,7 @@ sizeBtns.forEach(btn => {
 document.querySelector('.home__tab').click()
 document.querySelector('.small__tab').click()
     
-const productCart = (img, mainName, bag, price, count) => {
+const productCart = (img, mainName, bag, price, count, flower, flowerCount) => {
     return `
             <div class="product__item">
                 <div class="product__item-img">
@@ -139,6 +139,7 @@ const productCart = (img, mainName, bag, price, count) => {
                 <ul class="product__item-list">
                     <li class=" main-name">${mainName} (${count})</li>
                     <li class="product__item-names">${bag }</li>
+                    <li class="product__item-names">${flower} (${flowerCount})</li>
                 </ul>
                 <div class="product__item-price">
                     <span class="product__price">${price}</span>
@@ -208,9 +209,12 @@ function quantity() {
         localStorage.setItem('price', priceContent.innerHTML)
         let resulQuantity = result.value
         localStorage.setItem('count', resulQuantity)
+        let flowerCount = localStorage.getItem('flowerCount');
+        let priceOrder = flowerCount * 90;
+
 
         const price = localStorage.getItem('price')
-        let currentPrice = price * resulQuantity
+        let currentPrice = price * resulQuantity + priceOrder 
 
         if(result.value === 0) {
             btnAddToCart.classList.add('disabled')
@@ -226,7 +230,7 @@ function quantity() {
         
         
         
-        let product = productCart(localStorage.getItem('img'), localStorage.getItem('name'), localStorage.getItem('bag'), currentPrice, localStorage.getItem('count'))
+        let product = productCart(localStorage.getItem('img'), localStorage.getItem('name'), localStorage.getItem('bag'), currentPrice, localStorage.getItem('count'), localStorage.getItem('flower'), localStorage.getItem('flowerCount'))
         
         initialStorage(product)
 
@@ -253,41 +257,6 @@ quantity()
 
 
 
-function order() {
-    const cart  = document.querySelectorAll('.cart');
-    cart.forEach(item=> {
-
-        const plus = item.querySelector('.cart__plus');
-        const result = item.querySelector('#cart__result-inner');
-        const minus = item.querySelector('.cart__minus');
-        
-
-        let currentName = item.querySelector('.cart__name').innerHTML    
-        let currentPrice = item.querySelector('.cart__price-count')
-        plus.addEventListener('click', () => {
-
-            result.value++
-            if(result.value > 0) {
-                footerItems.classList.add('active')
-            }
-            itemsCart.innerHTML++
-            priceCart.innerHTML = plusFullPrice(parseInt(currentPrice.textContent))
-            
-        });
-        minus.addEventListener('click', (btn) => {
-            if(result.value <= 0) {
-
-            } else {
-                result.value--
-                itemsCart.innerHTML--
-            }
-            priceCart.innerHTML = minusFullPrice(parseInt(currentPrice.textContent))
-
-        })
-    })
-
-}
-order()
 
 
 
@@ -337,8 +306,6 @@ const productContent = document.querySelector('.product')
 let itemList = document.querySelector('.product__item-list');
 const addOrders = () => {
     if(  productContent.classList.contains('show')) {
-        console.log('qwe');
-        console.log(itemList);
         // itemList.insertAdjacentHTML('afterbegin',  `<li class="product__item-names">qwee</li>`
         // )
     }
@@ -371,6 +338,77 @@ const closeContent = () => {
 closeContent();
 
 
+
+
+
+const flowerBtnPlus = document.querySelector('.cart__plus-flower');
+const flowerBtnResult = document.querySelector('.cart__result-flower');
+const flowerBtnMinus = document.querySelector('.cart__minus-flower');
+const flowerName = document.querySelector('.cart__name-flower').innerHTML;
+const addFlower = () => {   
+    if(result.value === 0) {
+        console.log('123');
+        // flowerBtnPlus.removeEventListener('click')
+    }
+    flowerBtnPlus.addEventListener('click', ()=> {
+        flowerBtnResult.value++
+        localStorage.setItem('flower', flowerName)
+        itemsCart.innerHTML++
+        let currentPrice = document.querySelector('.cart__price-count').innerHTML
+        priceCart.innerHTML = plusFullPrice(parseInt(currentPrice))
+        let flowerCount = flowerBtnResult.value;
+        // console.log(flowerCount);
+        localStorage.setItem('flowerCount', flowerCount)
+    })
+    flowerBtnMinus.addEventListener('click', ()=> {
+        if(flowerBtnResult.value <= 0) {
+            flowerBtnResult.value = 0
+        } else 
+        flowerBtnResult.value--
+        itemsCart.innerHTML--
+
+    })
+}
+addFlower()
+
+
+
+
+// function order() {
+//     const cart  = document.querySelectorAll('.cart');
+//     cart.forEach(item=> {
+
+//         const plus = item.querySelector('.cart__plus');
+//         const result = item.querySelector('#cart__result-inner');
+//         const minus = item.querySelector('.cart__minus');
+        
+
+//         let currentName = item.querySelector('.cart__name').innerHTML    
+//         let currentPrice = item.querySelector('.cart__price-count')
+//         plus.addEventListener('click', () => {
+
+//             result.value++
+//             if(result.value > 0) {
+//                 footerItems.classList.add('active')
+//             }
+//             itemsCart.innerHTML++
+//             priceCart.innerHTML = plusFullPrice(parseInt(currentPrice.textContent))
+            
+//         });
+//         minus.addEventListener('click', (btn) => {
+//             if(result.value <= 0) {
+
+//             } else {
+//                 result.value--
+//                 itemsCart.innerHTML--
+//             }
+//             priceCart.innerHTML = minusFullPrice(parseInt(currentPrice.textContent))
+
+//         })
+//     })
+
+// }
+// order()
 
 
 
