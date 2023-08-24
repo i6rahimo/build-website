@@ -346,20 +346,23 @@ const flowerBtnResult = document.querySelector('.cart__result-flower');
 const flowerBtnMinus = document.querySelector('.cart__minus-flower');
 const flowerName = document.querySelector('.cart__name-flower').innerHTML;
 const addFlower = () => {   
-    if(result.value === 0) {
-        console.log('123');
-        // flowerBtnPlus.removeEventListener('click')
+    if(result.value === '0') {
+        flowerBtnPlus.addEventListener('click', ()=> {
+            flowerBtnResult.value = 0
+        })
+    } else if(result.value >= '1') {
+
+        flowerBtnPlus.addEventListener('click', ()=> {
+            flowerBtnResult.value++
+            localStorage.setItem('flower', flowerName)
+            itemsCart.innerHTML++
+            let currentPrice = document.querySelector('.cart__price-count').innerHTML
+            priceCart.innerHTML = plusFullPrice(parseInt(currentPrice))
+            let flowerCount = flowerBtnResult.value;
+            
+            localStorage.setItem('flowerCount', flowerCount)
+        })
     }
-    flowerBtnPlus.addEventListener('click', ()=> {
-        flowerBtnResult.value++
-        localStorage.setItem('flower', flowerName)
-        itemsCart.innerHTML++
-        let currentPrice = document.querySelector('.cart__price-count').innerHTML
-        priceCart.innerHTML = plusFullPrice(parseInt(currentPrice))
-        let flowerCount = flowerBtnResult.value;
-        // console.log(flowerCount);
-        localStorage.setItem('flowerCount', flowerCount)
-    })
     flowerBtnMinus.addEventListener('click', ()=> {
         if(flowerBtnResult.value <= 0) {
             flowerBtnResult.value = 0
