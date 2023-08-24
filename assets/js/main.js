@@ -133,18 +133,21 @@ document.querySelector('.small__tab').click()
 const productCart = (img, mainName, bag, price, count, flower, flowerCount) => {
     return `
             <div class="product__item">
-                <div class="product__item-img">
-                    <img src="${img}" alt="">
+                <div class="product__item-content">
+                    <div class="product__item-img">
+                        <img src="${img}" alt="">
+                    </div>
+                    <ul class="product__item-list">
+                        <li class=" main-name">${mainName} (${count})</li>
+                        <li class="product__item-names">${bag }</li>
+                        <li class="product__item-names">${flower} (${flowerCount})</li>
+                    </ul>
+                    <div class="product__item-price">
+                        <span class="product__price">${price}</span>
+                        <p>AED</p>
+                    </div>
                 </div>
-                <ul class="product__item-list">
-                    <li class=" main-name">${mainName} (${count})</li>
-                    <li class="product__item-names">${bag }</li>
-                    <li class="product__item-names">${flower} (${flowerCount})</li>
-                </ul>
-                <div class="product__item-price">
-                    <span class="product__price">${price}</span>
-                    <p>AED</p>
-                </div>
+                <button class="product__item-delete">Delete</button>
             </div>
         `
     
@@ -345,6 +348,45 @@ const linkCart = () => {
         main.classList.add('hiden')
         productFooter.classList.add('show')
         productContent.classList.add('show')
+
+        const productItemMain = document.querySelectorAll('.product__item');
+
+        productItemMain.forEach(item => {
+          let innerItem = item.querySelector('.product__item-content')
+          let innerBtn = item.querySelector('.product__item-delete')
+          console.log(innerItem);
+          let startX;
+          let dist;
+          let threshold = innerItem.offsetWidth * 0.3; // Пороговое значение для определения смахивания влево\
+          
+          innerItem.addEventListener('touchstart', (event) => {
+              startX = event.touches[0].clientX;
+              dist = 0;
+          });
+          
+          innerItem.addEventListener('touchmove', (event) => {
+              let touch = event.touches[0];
+              let deltaX = startX - touch.clientX;
+              console.log(threshold);
+              
+              if (deltaX > 0) {
+                  dist = deltaX;
+                  innerItem.style.transform = `translateX(${-dist}px)`;
+              }
+          });
+          
+          innerItem.addEventListener('touchend', () => {
+              if (dist > threshold) {
+                  innerBtn.addEventListener('click', ()=> {
+                      
+                      item.remove()
+                  })
+              } else {
+                  innerItem.style.transform = `translateX(0px)`;
+                  
+              }
+          });
+        });
     })
 }
 linkCart()
@@ -407,23 +449,6 @@ closeContent();
 // order()
 
 
-const deleteItem = () => {
-    let item = document.querySelector('.product__item');
-    let startX;
-    let dist;
-    let isSwipingLeft = false;
-    // let threshold = element.offsetWidth * 0.3;
-    item.addEventListener('touchmove', (e)=> {
-        let self = e.currentTarget;
-        startX = e.touches[0].clientX;
-        // if(start)
-        e.currentTarget.style.transform = `translate(${startX})`
-    }) 
-
-
-}
-deleteItem()
-
 
 
 
@@ -448,44 +473,7 @@ document.addEventListener('touchstart', function(event) {
 
 //   const productItems = document.querySelectorAll('.product__item-content');
 //   const productDeleteBtn = document.querySelectorAll('.product__item-delete');
-  const productItemMain = document.querySelectorAll('.product__item');
 
-  productItemMain.forEach(item => {
-    let innerItem = item.querySelector('.product__item-content')
-    let innerBtn = item.querySelector('.product__item-delete')
-    console.log(innerItem);
-    let startX;
-    let dist;
-    let threshold = innerItem.offsetWidth * 0.3; // Пороговое значение для определения смахивания влево\
-    
-    innerItem.addEventListener('touchstart', (event) => {
-        startX = event.touches[0].clientX;
-        dist = 0;
-    });
-    
-    innerItem.addEventListener('touchmove', (event) => {
-        let touch = event.touches[0];
-        let deltaX = startX - touch.clientX;
-        console.log(threshold);
-        
-        if (deltaX > 0) {
-            dist = deltaX;
-            innerItem.style.transform = `translateX(${-dist}px)`;
-        }
-    });
-    
-    innerItem.addEventListener('touchend', () => {
-        if (dist > threshold) {
-            innerBtn.addEventListener('click', ()=> {
-                
-                item.remove()
-            })
-        } else {
-            innerItem.style.transform = `translateX(0px)`;
-            
-        }
-    });
-  });
   // Добавляем обработчик события "swipe left" для каждого элемента
 //   productItems.forEach(item => {
 //     let startX;
