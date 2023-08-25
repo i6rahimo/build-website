@@ -130,7 +130,7 @@ sizeBtns.forEach(btn => {
 document.querySelector('.home__tab').click()
 document.querySelector('.small__tab').click()
     
-const productCart = (img, mainName, bag, price, count, flower, flowerCount) => {
+const productCart = (img, mainName, bag, price, count) => {
     return `
             <div class="product__item">
                 <div class="product__item-content">
@@ -140,7 +140,6 @@ const productCart = (img, mainName, bag, price, count, flower, flowerCount) => {
                     <ul class="product__item-list">
                         <li class=" main-name">${mainName} (${count})</li>
                         <li class="product__item-names">${bag }</li>
-                        <li class="product__item-names">${flower} (${flowerCount})</li>
                     </ul>
                     <div class="product__item-price">
                         <span class="product__price">${price}</span>
@@ -179,10 +178,12 @@ const flowerBtnMinus = document.querySelector('.cart__minus-flower');
 const flowerName = document.querySelector('.cart__name-flower').innerHTML;
 const addFlower = () => {   
     if(result.value === '0') {
+        console.log('0');
         flowerBtnPlus.addEventListener('click', ()=> {
             flowerBtnResult.value = 0
         })
     } else if(result.value >= '1') {
+        console.log('1');
 
         flowerBtnPlus.addEventListener('click', ()=> {
             flowerBtnResult.value++
@@ -205,12 +206,12 @@ const addFlower = () => {
     })
 }
 
-
 function quantity() {
 
 
     plus.addEventListener('click', () => {
         result.value++
+        console.log(typeof result.value);
         const imgActive = document.querySelectorAll('.home__content-inner')
         imgActive.forEach((e, index) => {
             if(e.classList.contains('active')) {
@@ -258,6 +259,7 @@ function quantity() {
         
         if(result.value > 0) {
             footerItems.classList.add('active')
+            addFlower()
         }
         itemsCart.innerHTML++
 
@@ -265,12 +267,14 @@ function quantity() {
         
         
         
-        let product = productCart(localStorage.getItem('img'), localStorage.getItem('name'), localStorage.getItem('bag'), currentPrice, localStorage.getItem('count'), localStorage.getItem('flower'), localStorage.getItem('flowerCount'))
+        let product = productCart(localStorage.getItem('img'), localStorage.getItem('name'), localStorage.getItem('bag'), currentPrice, localStorage.getItem('count'))
         
         initialStorage(product)
 
         addToCartBtn()
-        addFlower()
+
+
+ 
     });
     minus.addEventListener('click', () => {
         if(result.value <= 0) {
@@ -301,7 +305,7 @@ quantity()
 const addToCartBtn = () => {
     
     
-    if(itemsCart.innerHTML === '') {
+    if(itemsCart.innerHTML === '0') {
         btnAddToCart.classList.remove('active')
         btnAddToCartSvg.classList.remove('active')
         
@@ -318,16 +322,19 @@ const addToCart = () => {
     btnAddToCart.addEventListener('click', ()=> {
         let productInner = localStorage.getItem('products')
         btnLinkCartPrice.innerHTML = priceCart.innerHTML
-        
+        btnAddToCart.classList.remove('active')
+        btnAddToCartSvg.classList.remove('active')
         btnLinkCart.classList.add('active')
         btnLinkCart.classList.remove('disabled')
         btnLinkCartSvg.classList.add('active')
         priceCart.innerHTML = 0;
         result.value = 0;
+        flowerBtnResult.value = 0;
         itemsCart.innerHTML = 0;
         updateStorage(productInner)
         document.body.scrollTop = document.documentElement.scrollTop = 0;
 
+        
         
 
     })
@@ -348,7 +355,10 @@ const linkCart = () => {
         main.classList.add('hiden')
         productFooter.classList.add('show')
         productContent.classList.add('show')
-
+        let productItemList = productContent.querySelector('.product__item-list')
+        if(localStorage.getItem('flower') !== null) {
+            productItemList.innerHTML += `<li class="product__item-names">${localStorage.getItem('flower')}(${localStorage.getItem('flowerCount')})</li>`
+        }
         const productItemMain = document.querySelectorAll('.product__item');
 
         productItemMain.forEach(item => {
