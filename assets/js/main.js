@@ -178,12 +178,12 @@ const flowerBtnMinus = document.querySelector('.cart__minus-flower');
 const flowerName = document.querySelector('.cart__name-flower').innerHTML;
 const addFlower = () => {   
     if(result.value === '0') {
-        console.log('0');
+        
         flowerBtnPlus.addEventListener('click', ()=> {
             flowerBtnResult.value = 0
         })
     } else if(result.value >= '1') {
-        console.log('1');
+
 
         flowerBtnPlus.addEventListener('click', ()=> {
             flowerBtnResult.value++
@@ -211,7 +211,7 @@ function quantity() {
 
     plus.addEventListener('click', () => {
         result.value++
-        console.log(typeof result.value);
+
         const imgActive = document.querySelectorAll('.home__content-inner')
         imgActive.forEach((e, index) => {
             if(e.classList.contains('active')) {
@@ -230,7 +230,7 @@ function quantity() {
 
         priceCart.innerHTML = plusFullPrice(parseInt(priceContent.textContent))
       
-        fullPriceContent.innerHTML = priceCart.innerHTML
+        
         const deliveryBag = document.querySelectorAll('.deliver__content-img');
         
         deliveryBag.forEach(bag => {
@@ -308,7 +308,7 @@ const addToCartBtn = () => {
     if(itemsCart.innerHTML === '0') {
         btnAddToCart.classList.remove('active')
         btnAddToCartSvg.classList.remove('active')
-        
+       
     } else if (itemsCart.textContent > 0) {
         btnAddToCart.classList.add('active')
         btnAddToCartSvg.classList.add('active')
@@ -347,10 +347,11 @@ const productFooter = document.querySelector('.product__footer')
 const productContent = document.querySelector('.product')
 
 
-
 const linkCart = () => {
     btnLinkCart.addEventListener('click', (e)=> {
+        const productItemPrice = document.querySelectorAll('.product__price')
         let self = e.currentTarget;
+        fullPriceContent.innerHTML = priceCart.innerHTML
         footerWrapper.classList.add('hiden')
         main.classList.add('hiden')
         productFooter.classList.add('show')
@@ -361,10 +362,20 @@ const linkCart = () => {
         }
         const productItemMain = document.querySelectorAll('.product__item');
 
+
+        
+            let sum = 0;
+            productItemPrice.forEach(item => {
+                let items = parseInt(item.textContent);
+                sum += items;
+                fullPriceContent.innerHTML = sum
+
+            })
+        
         productItemMain.forEach(item => {
-          let innerItem = item.querySelector('.product__item-content')
+            let innerItem = item.querySelector('.product__item-content')
           let innerBtn = item.querySelector('.product__item-delete')
-          console.log(innerItem);
+          let productPrice = item.querySelector('.product__price').textContent
           let startX;
           let dist;
           let threshold = innerItem.offsetWidth * 0.3; // Пороговое значение для определения смахивания влево\
@@ -372,31 +383,37 @@ const linkCart = () => {
           innerItem.addEventListener('touchstart', (event) => {
               startX = event.touches[0].clientX;
               dist = 0;
-          });
+            });
           
-          innerItem.addEventListener('touchmove', (event) => {
+            innerItem.addEventListener('touchmove', (event) => {
               let touch = event.touches[0];
               let deltaX = startX - touch.clientX;
-              console.log(threshold);
+              
               
               if (deltaX > 0) {
                   dist = deltaX;
                   innerItem.style.transform = `translateX(${-dist}px)`;
-              }
-          });
+                }
+            });
           
           innerItem.addEventListener('touchend', () => {
               if (dist > threshold) {
                   innerBtn.addEventListener('click', ()=> {
-                      
-                      item.remove()
+                    let minusSum = parseInt(productPrice)
+                    console.log(minusSum);
+                    fullPriceContent.textContent -= minusSum
+                    item.remove()
+                    btnLinkCartPrice.textContent = fullPriceContent.textContent 
                   })
               } else {
                   innerItem.style.transform = `translateX(0px)`;
                   
-              }
-          });
+                }
+            });
         });
+
+        
+
     })
 }
 linkCart()
