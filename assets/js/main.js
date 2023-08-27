@@ -146,7 +146,9 @@ const productCart = (img, mainName, bag, price, count) => {
                         <p>AED</p>
                     </div>
                 </div>
-                <button class="product__item-delete">Delete</button>
+                <button class="product__item-delete"><svg width="46" height="50" viewBox="0 0 46 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M40.3478 16.7425C40.8462 16.7425 41.2985 16.96 41.6559 17.3275C41.989 17.72 42.1568 18.2074 42.1081 18.7224C42.1081 18.8924 40.7757 35.7424 40.0147 42.8349C39.5381 47.1874 36.7323 49.8298 32.5236 49.9023C29.2874 49.9748 26.1241 49.9998 23.0095 49.9998C19.7028 49.9998 16.4691 49.9748 13.3301 49.9023C9.26239 49.8048 6.45413 47.1149 6.00189 42.8349C5.21898 35.7174 3.91088 18.8924 3.88657 18.7224C3.86226 18.2074 4.02759 17.72 4.36312 17.3275C4.69379 16.96 5.17035 16.7425 5.67122 16.7425H40.3478ZM28.1619 -0.000488281C30.372 -0.000488281 32.3463 1.54201 32.9177 3.742L33.3262 5.56699C33.6568 7.05449 34.9455 8.10698 36.4286 8.10698H43.718C44.6905 8.10698 45.5002 8.91448 45.5002 9.94198V10.892C45.5002 11.8945 44.6905 12.727 43.718 12.727H2.28452C1.30953 12.727 0.499878 11.8945 0.499878 10.892V9.94198C0.499878 8.91448 1.30953 8.10698 2.28452 8.10698H9.57385C11.0546 8.10698 12.3432 7.05449 12.6763 5.56949L13.058 3.8645C13.6513 1.54201 15.6037 -0.000488281 17.8382 -0.000488281H28.1619Z" fill="white"/>
+                </svg> </button>
             </div>
         `
     
@@ -176,35 +178,68 @@ const flowerBtnPlus = document.querySelector('.cart__plus-flower');
 const flowerBtnResult = document.querySelector('.cart__result-flower');
 const flowerBtnMinus = document.querySelector('.cart__minus-flower');
 const flowerName = document.querySelector('.cart__name-flower').innerHTML;
-const addFlower = () => {   
-    if(result.value === '0') {
+
+const teaBtnPlus = document.querySelector('.cart__plus-tea');
+const teaBtnResult = document.querySelector('.cart__result-tea');
+const teaBtnMinus = document.querySelector('.cart__minus-tea');
+const teaName = document.querySelector('.cart__name-tea').innerHTML;
+
+flowerBtnPlus.addEventListener('click', addCountflower)
+function addCountflower()  {
+        if(localStorage.getItem('count') >= 1) {
+        flowerBtnResult.value++
+        localStorage.setItem('flower', flowerName)
+        itemsCart.innerHTML++
+        let currentPrice = document.querySelector('.cart__price-count').innerHTML
+        priceCart.innerHTML = plusFullPrice(parseInt(currentPrice))
+        let flowerCount = flowerBtnResult.value;
         
-        flowerBtnPlus.addEventListener('click', ()=> {
-            flowerBtnResult.value = 0
-        })
-    } else if(result.value >= '1') {
-
-
-        flowerBtnPlus.addEventListener('click', ()=> {
-            flowerBtnResult.value++
-            localStorage.setItem('flower', flowerName)
-            itemsCart.innerHTML++
-            let currentPrice = document.querySelector('.cart__price-count').innerHTML
-            priceCart.innerHTML = plusFullPrice(parseInt(currentPrice))
-            let flowerCount = flowerBtnResult.value;
-            
-            localStorage.setItem('flowerCount', flowerCount)
-        })
+        localStorage.setItem('flowerCount', parseInt(flowerCount))
+        }
     }
-    flowerBtnMinus.addEventListener('click', ()=> {
-        if(flowerBtnResult.value <= 0) {
-            flowerBtnResult.value = 0
-        } else 
-        flowerBtnResult.value--
-        itemsCart.innerHTML--
 
-    })
-}
+    
+flowerBtnMinus.addEventListener('click', ()=> {
+    if(flowerBtnResult.value <= 0) {
+        flowerBtnResult.value = 0
+    } else 
+    flowerBtnResult.value--
+    let flowerCount = flowerBtnResult.value;
+    localStorage.setItem('flowerCount', parseInt(flowerCount))
+})
+
+
+
+teaBtnPlus.addEventListener('click', ()=> {
+
+    if(localStorage.getItem('count') >= 1) {
+        teaBtnResult.value++
+        localStorage.setItem('tea', teaName)
+        itemsCart.innerHTML++
+        let currentPrice = document.querySelector('.cart__price-count').innerHTML
+        priceCart.innerHTML = plusFullPrice(parseInt(currentPrice))
+        let teaCount = teaBtnResult.value;
+        
+        localStorage.setItem('teaCount', parseInt(teaCount))
+        console.log('qwe');
+    }
+
+})
+    
+    teaBtnMinus.addEventListener('click', ()=> {
+    if(teaBtnResult.value <= 0) {
+        teaBtnResult.value = 0
+    } else 
+    teaBtnResult.value--
+    let teaCount = teaBtnResult.value;
+    localStorage.setItem('teaCount', parseInt(teaCount))
+})
+
+
+
+
+
+
 
 function quantity() {
 
@@ -259,7 +294,7 @@ function quantity() {
         
         if(result.value > 0) {
             footerItems.classList.add('active')
-            addFlower()
+            // addFlower()
         }
         itemsCart.innerHTML++
 
@@ -284,15 +319,16 @@ function quantity() {
         } else {
             result.value--
             itemsCart.innerHTML--
+            let resulQuantity = result.value
+            localStorage.setItem('count', resulQuantity)
+        }
 
             
             priceCart.innerHTML = minusFullPrice(parseInt(priceContent.textContent))
             addToCartBtn()
-        }
     })
 }
 quantity()
-
 
 
 
@@ -320,6 +356,8 @@ const addToCartBtn = () => {
 
 const addToCart = () => {
     btnAddToCart.addEventListener('click', ()=> {
+        
+        
         let productInner = localStorage.getItem('products')
         btnLinkCartPrice.innerHTML = priceCart.innerHTML
         btnAddToCart.classList.remove('active')
@@ -333,9 +371,10 @@ const addToCart = () => {
         itemsCart.innerHTML = 0;
         updateStorage(productInner)
         document.body.scrollTop = document.documentElement.scrollTop = 0;
-
         
         
+        // let flowerCount = flowerBtnResult.value;
+        // localStorage.setItem('flowerCount', parseInt(flowerCount))
 
     })
 }
@@ -358,8 +397,8 @@ const linkCart = () => {
         productContent.classList.add('show')
         let productItemList = productContent.querySelector('.product__item-list')
         if(localStorage.getItem('flower') !== null) {
-            productItemList.innerHTML += `<li class="product__item-names">${localStorage.getItem('flower')}(${localStorage.getItem('flowerCount')})</li>`
-        }
+            productItemList.innerHTML += `<li class="product__item-names">${localStorage.getItem('flower')} (${localStorage.getItem('flowerCount')})</li>`
+        } 
         const productItemMain = document.querySelectorAll('.product__item');
 
 
@@ -400,7 +439,6 @@ const linkCart = () => {
               if (dist > threshold) {
                   innerBtn.addEventListener('click', ()=> {
                     let minusSum = parseInt(productPrice)
-                    console.log(minusSum);
                     fullPriceContent.textContent -= minusSum
                     item.remove()
                     btnLinkCartPrice.textContent = fullPriceContent.textContent 
@@ -439,44 +477,6 @@ closeContent();
 
 
 
-// function order() {
-//     const cart  = document.querySelectorAll('.cart');
-//     cart.forEach(item=> {
-
-//         const plus = item.querySelector('.cart__plus');
-//         const result = item.querySelector('#cart__result-inner');
-//         const minus = item.querySelector('.cart__minus');
-        
-
-//         let currentName = item.querySelector('.cart__name').innerHTML    
-//         let currentPrice = item.querySelector('.cart__price-count')
-//         plus.addEventListener('click', () => {
-
-//             result.value++
-//             if(result.value > 0) {
-//                 footerItems.classList.add('active')
-//             }
-//             itemsCart.innerHTML++
-//             priceCart.innerHTML = plusFullPrice(parseInt(currentPrice.textContent))
-            
-//         });
-//         minus.addEventListener('click', (btn) => {
-//             if(result.value <= 0) {
-
-//             } else {
-//                 result.value--
-//                 itemsCart.innerHTML--
-//             }
-//             priceCart.innerHTML = minusFullPrice(parseInt(currentPrice.textContent))
-
-//         })
-//     })
-
-// }
-// order()
-
-
-
 
 
 
@@ -494,41 +494,3 @@ document.addEventListener('touchstart', function(event) {
   }, { passive: false });
 
 
-
-
-
-
-//   const productItems = document.querySelectorAll('.product__item-content');
-//   const productDeleteBtn = document.querySelectorAll('.product__item-delete');
-
-  // Добавляем обработчик события "swipe left" для каждого элемента
-//   productItems.forEach(item => {
-//     let startX;
-//     let dist;
-//     let threshold = item.offsetWidth * 0.3; // Пороговое значение для определения смахивания влево
-//     item.addEventListener('touchstart', (event) => {
-//         startX = event.touches[0].clientX;
-//         dist = 0;
-//     });
-    
-//     item.addEventListener('touchmove', (event) => {
-//         let touch = event.touches[0];
-//         let deltaX = startX - touch.clientX;
-//         console.log(threshold);
-  
-//       if (deltaX > 0) {
-//         dist = deltaX;
-//         item.style.transform = `translateX(${-dist}px)`;
-//       }
-//     });
-  
-//     item.addEventListener('touchend', () => {
-//         if (dist > threshold) {
-//             console.log(item.closest('product__item-img'));
-//         } else {
-//             item.style.transform = `translateX(0px)`;
-
-//         }
-//     });
-//   });
-  
