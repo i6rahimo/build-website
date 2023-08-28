@@ -465,7 +465,6 @@ h2 {
   width: 80px;
   height: 110px;
 }
-
 .main-name {
   color: #373737; 
   font-size: 13px;
@@ -597,3 +596,6 @@ main.hiden {
 }
 
 
+.cart__minus-flower, .cart__minus-tea {
+  background: none;
+}

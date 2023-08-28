@@ -109,18 +109,14 @@ sizeBtns.forEach(btn => {
             homcontentBig.classList.add('active')
             priceContent.innerHTML = price.big
             increasePrice(price.big)
-            priceCart.textContent = '0'
         } else if (btnIdSize === 'medium') {
             homcontentMedium.classList.add('active')
             priceContent.innerHTML = price.medium
             increasePrice(price.medium)
-            priceCart.textContent = '0'
-
         } else if (btnIdSize === 'small') {
             homcontentSmall.classList.add('active')
             priceContent.innerHTML = price.small
             increasePrice(price.small)
-        priceCart.textContent = '0'
 
         } 
 
@@ -191,11 +187,12 @@ function addCountflower()  {
         localStorage.setItem('flower', flowerName)
         itemsCart.innerHTML++
         let currentPrice = document.querySelector('.cart__price-count').innerHTML
-        priceCart.innerHTML = plusFullPrice(parseInt(currentPrice))
+
         let flowerCount = flowerBtnResult.value;
         
         localStorage.setItem('flowerCount', parseInt(flowerCount))
         flowerBtnMinus.removeAttribute('disabled')
+        priceCart.innerHTML = plusFullPrice(parseInt(currentPrice))
         }
     }
 
@@ -274,8 +271,7 @@ function quantity() {
             }
         })
 
-        priceCart.innerHTML = plusFullPrice(parseInt(priceContent.textContent))
-      
+        
         
         const deliveryBag = document.querySelectorAll('.deliver__content-img');
         
@@ -288,16 +284,18 @@ function quantity() {
         })
 
         
+        priceCart.innerHTML = plusFullPrice(parseInt(priceContent.innerHTML))
+
         localStorage.setItem('price', priceContent.innerHTML)
         let resulQuantity = result.value
         localStorage.setItem('count', resulQuantity)
         let flowerCount = localStorage.getItem('flowerCount');
         let priceOrder = flowerCount * 90;
-
-
+        
+        
         const price = localStorage.getItem('price')
         let currentPrice = price * resulQuantity + priceOrder 
-
+        
         if(result.value === 0) {
             btnAddToCart.classList.add('disabled')
         }
@@ -316,9 +314,9 @@ function quantity() {
         let product = productCart(localStorage.getItem('img'), localStorage.getItem('name'), localStorage.getItem('bag'), currentPrice, localStorage.getItem('count'))
         
         initialStorage(product)
-
+        
+        
         addToCartBtn()
-
 
  
     });
@@ -367,7 +365,7 @@ const addToCartBtn = () => {
 
 const addToCart = () => {
     btnAddToCart.addEventListener('click', ()=> {
-        
+        priceCart.innerHTML = 0
         
         let productInner = localStorage.getItem('products')
         btnLinkCartPrice.innerHTML = priceCart.innerHTML
@@ -376,7 +374,6 @@ const addToCart = () => {
         btnLinkCart.classList.add('active')
         btnLinkCart.classList.remove('disabled')
         btnLinkCartSvg.classList.add('active')
-        priceCart.innerHTML = 0;
         result.value = 0;
         flowerBtnResult.value = 0;
         teaBtnResult.value = 0;
@@ -385,14 +382,30 @@ const addToCart = () => {
         document.body.scrollTop = document.documentElement.scrollTop = 0;
         
         
-
         let productItemList = productContent.querySelector('.product__item-list')
-        if(localStorage.getItem('flower') !== null) {
-            productItemList.innerHTML += `<li class="product__item-names">${localStorage.getItem('flower')} (${localStorage.getItem('flowerCount')})</li>`
-        } 
-        if(localStorage.getItem('tea') !== null) {
-            productItemList.innerHTML += `<li class="product__item-names">${localStorage.getItem('tea')} (${localStorage.getItem('teaCount')})</li>`
+        function addFlowerCount() {
+            if(localStorage.getItem('flowerCount') < 1) {
+                return 0
+            } else if (localStorage.getItem('flowerCount') >= 1) {
+                productItemList.innerHTML += `<li class="product__item-names">${localStorage.getItem('flower')} (${localStorage.getItem('flowerCount')})</li>`
+            }
         }
+        addFlowerCount()
+        function addTeaCount() {
+
+            if(localStorage.getItem('teaCount') < 1) {
+                return 0
+            }else if(localStorage.getItem('teaCount') >= 1) {
+                productItemList.innerHTML += `<li class="product__item-names">${localStorage.getItem('tea')} (${localStorage.getItem('teaCount')})</li>`
+            }
+        }
+        addTeaCount()
+        
+
+        localStorage.setItem('flowerCount', 0)
+        localStorage.setItem('teaCount', 0)
+        
+        
         // let flowerCount = flowerBtnResult.value;
         // localStorage.setItem('flowerCount', parseInt(flowerCount))
 
@@ -456,9 +469,9 @@ const linkCart = () => {
               if (dist > threshold) {
                   innerBtn.addEventListener('click', ()=> {
                     let minusSum = parseInt(productPrice)
-                    fullPriceContent.textContent -= minusSum
-                    item.remove()
+                    fullPriceContent.innerHTML -= minusSum
                     btnLinkCartPrice.textContent = fullPriceContent.textContent 
+                    item.remove()
                   })
               } else {
                   innerItem.style.transform = `translateX(0px)`;
