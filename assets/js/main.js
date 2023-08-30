@@ -251,6 +251,16 @@ teaBtnMinus.addEventListener('click', ()=> {
 
 function quantity() {
 
+    result.addEventListener('input', (e)=> {
+        let currentValue = parseInt(e.target.value); 
+        if(currentValue >= 1) {
+            footerItems.classList.add('active')
+        } else if (currentValue < 1) {
+            footerItems.classList.remove('active')
+        }
+        itemsCart.innerHTML = currentValue
+        priceCart.innerHTML = plusFullPrice(parseInt(priceContent.innerHTML))
+    })
 
     plus.addEventListener('click', () => {
         result.value++
@@ -321,19 +331,19 @@ function quantity() {
  
     });
     minus.addEventListener('click', () => {
-        if(result.value <= 0) {
-            result.value == 0
-            footerItems.classList.remove('active')
-            priceCart.innerHTML = '0'
+        if(result.value < 1) {
+            result.value = 0
+            // footerItems.classList.remove('active')
+            priceCart.innerHTML = 0
         } else {
             result.value--
             itemsCart.innerHTML--
             let resulQuantity = result.value
             localStorage.setItem('count', resulQuantity)
+            priceCart.innerHTML = minusFullPrice(parseInt(priceContent.textContent))
         }
 
             
-            priceCart.innerHTML = minusFullPrice(parseInt(priceContent.textContent))
             addToCartBtn()
     })
 }
