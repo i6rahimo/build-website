@@ -341,9 +341,10 @@ h2 {
   justify-content: center;
   display: flex;
   gap: 5px;
-  
 }
-
+.cart__wrapper.hidden {
+  opacity: 0.5;
+}
 
 .footer {
   position: fixed;
