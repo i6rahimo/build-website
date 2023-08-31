@@ -19,7 +19,7 @@ const btnLinkCart = document.querySelector('.footer__cart')
 const btnLinkCartSvg = document.querySelector('.footer__cart-svg')
 const btnLinkCartPrice = document.querySelector('.footer__cart-price')
 const fullPriceContent = document.querySelector('.product__fullprice')
-
+const cartWrapper = document.querySelector('.cart__wrapper')
 function deliveryBag() {
     const btns = document.querySelectorAll('.deliver__tab');
     const img = document.querySelectorAll('.deliver__content-img');
@@ -192,7 +192,7 @@ function addCountflower()  {
         
         localStorage.setItem('flowerCount', parseInt(flowerCount))
         flowerBtnMinus.removeAttribute('disabled')
-        priceCart.innerHTML = plusFullPrice(parseInt(currentPrice))
+        // priceCart.innerHTML = plusFullPrice(parseInt(currentPrice))
         }
     }
 
@@ -204,7 +204,7 @@ flowerBtnMinus.addEventListener('click', (e)=> {
         localStorage.setItem('flowerCount', parseInt(flowerCount))
         
         let currentPrice = document.querySelector('.cart__price-count').innerHTML
-        priceCart.innerHTML = minusFullPrice(parseInt(currentPrice))
+        // priceCart.innerHTML = minusFullPrice(parseInt(currentPrice))
     } else    if(localStorage.getItem('flowerCount') < 1 ) {
         flowerBtnMinus.disabled = false
         // flowerBtnResult.value = 0
@@ -220,7 +220,7 @@ teaBtnPlus.addEventListener('click', ()=> {
         localStorage.setItem('tea', teaName)
         itemsCart.innerHTML++
         let currentPrice = document.querySelector('.cart__price-count').innerHTML
-        priceCart.innerHTML = plusFullPrice(parseInt(currentPrice))
+        // priceCart.innerHTML = plusFullPrice(parseInt(currentPrice))
         let teaCount = teaBtnResult.value;
         localStorage.setItem('teaCount', parseInt(teaCount))
         teaBtnMinus.removeAttribute('disabled')
@@ -235,7 +235,7 @@ teaBtnMinus.addEventListener('click', ()=> {
         localStorage.setItem('teaCount', parseInt(teaCount))
         
         let currentPrice = document.querySelector('.cart__price-count').innerHTML
-        priceCart.innerHTML = minusFullPrice(parseInt(currentPrice))
+        // priceCart.innerHTML = minusFullPrice(parseInt(currentPrice))
 
     } else    if(localStorage.getItem('teaCount') < 1 ) {
         
@@ -259,7 +259,7 @@ function quantity() {
             footerItems.classList.remove('active')
         }
         itemsCart.innerHTML = currentValue
-        priceCart.innerHTML = plusFullPrice(parseInt(priceContent.innerHTML))
+        // priceCart.innerHTML = plusFullPrice(parseInt(priceContent.innerHTML))
     })
 
     plus.addEventListener('click', () => {
@@ -293,6 +293,7 @@ function quantity() {
             }
         })
 
+        console.log(localStorage.getItem('count') * localStorage.getItem('price'));
         
         priceCart.innerHTML = plusFullPrice(parseInt(priceContent.innerHTML))
 
@@ -309,14 +310,10 @@ function quantity() {
         if(result.value === 0) {
             btnAddToCart.classList.add('disabled')
         }
-
         
-        if(result.value > 0) {
-            footerItems.classList.add('active')
-            // addFlower()
-        }
+        
         itemsCart.innerHTML++
-
+        
         increasePrice()
         
         
@@ -327,24 +324,31 @@ function quantity() {
         
         
         addToCartBtn()
+        
+        if(result.value > 0) {
+            footerItems.classList.add('active')
+            // addFlower()
+            cartWrapper.classList.remove('hidden')
+        }
 
  
     });
     minus.addEventListener('click', () => {
-        if(result.value < 1) {
+        if(result.value < 2) {
             result.value = 0
-            // footerItems.classList.remove('active')
             priceCart.innerHTML = 0
+            footerItems.classList.remove('active')
+            cartWrapper.classList.add('hidden')
         } else {
             result.value--
             itemsCart.innerHTML--
             let resulQuantity = result.value
             localStorage.setItem('count', resulQuantity)
             priceCart.innerHTML = minusFullPrice(parseInt(priceContent.textContent))
-        }
 
+        }
             
-            addToCartBtn()
+        addToCartBtn()
     })
 }
 quantity()
@@ -375,10 +379,10 @@ const addToCartBtn = () => {
 
 const addToCart = () => {
     btnAddToCart.addEventListener('click', ()=> {
-        priceCart.innerHTML = 0
+        // priceCart.innerHTML = 0
         
         let productInner = localStorage.getItem('products')
-        btnLinkCartPrice.innerHTML = priceCart.innerHTML
+        // btnLinkCartPrice.innerHTML = priceCart.innerHTML
         btnAddToCart.classList.remove('active')
         btnAddToCartSvg.classList.remove('active')
         btnLinkCart.classList.add('active')
@@ -433,7 +437,7 @@ const linkCart = () => {
     btnLinkCart.addEventListener('click', (e)=> {
         const productItemPrice = document.querySelectorAll('.product__price')
         let self = e.currentTarget;
-        fullPriceContent.innerHTML = priceCart.innerHTML
+        // fullPriceContent.innerHTML = priceCart.innerHTML
         footerWrapper.classList.add('hiden')
         main.classList.add('hiden')
         productFooter.classList.add('show')
