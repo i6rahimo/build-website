@@ -334,21 +334,21 @@ function quantity() {
  
     });
     minus.addEventListener('click', () => {
-        if(result.value < 2) {
+        
+        addToCartBtn()
+        
+        result.value--
+        itemsCart.innerHTML--
+        let resulQuantity = result.value
+        localStorage.setItem('count', resulQuantity)
+        priceCart.innerHTML = minusFullPrice(parseInt(priceContent.textContent))
+
+        if(result.value < 1) {
             result.value = 0
             priceCart.innerHTML = 0
             footerItems.classList.remove('active')
             cartWrapper.classList.add('hidden')
-        } else {
-            result.value--
-            itemsCart.innerHTML--
-            let resulQuantity = result.value
-            localStorage.setItem('count', resulQuantity)
-            priceCart.innerHTML = minusFullPrice(parseInt(priceContent.textContent))
-
-        }
-            
-        addToCartBtn()
+        }        
     })
 }
 quantity()
